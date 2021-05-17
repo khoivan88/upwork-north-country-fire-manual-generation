@@ -1,0 +1,2 @@
+pdfminer.six
+rich==10.2.0
