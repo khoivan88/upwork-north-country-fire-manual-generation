@@ -1,20 +1,20 @@
-sku          ,brand   ,pdf_name                             ,pdf_location
-RBF30        ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF30WC      ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF36        ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF36WC      ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF36P       ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF36PWC     ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF42        ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-RBF42WC      ,Dimplex ,Revillusion_Dimplex.pdf              ,Dimplex/Revillusion_Dimplex.pdf
-CDFI1000-PRO ,Dimplex ,CDFI_Owners_Manual_7214300200R03.pdf ,Dimplex/CDFI_Owners_Manual_7214300200R03.pdf
-CDFI500-PRO  ,Dimplex ,CDFI_Owners_Manual_7214300200R03.pdf ,Dimplex/CDFI_Owners_Manual_7214300200R03.pdf
-VF5452L      ,Dimplex ,7213460100R05_EN.pdf                 ,Dimplex/7213460100R05_EN.pdf
-VF2927L      ,Dimplex ,7213460100R05_EN.pdf                 ,Dimplex/7213460100R05_EN.pdf
-VFA2927      ,Dimplex ,7213460100R05_EN.pdf                 ,Dimplex/7213460100R05_EN.pdf
-XLF50        ,Dimplex ,XLF100_Dimplex.pdf                   ,Dimplex/XLF100_Dimplex.pdf
-XLF74        ,Dimplex ,XLF100_Dimplex.pdf                   ,Dimplex/XLF100_Dimplex.pdf
-XLF100       ,Dimplex ,XLF100_Dimplex.pdf                   ,Dimplex/XLF100_Dimplex.pdf
-PF2325       ,Dimplex ,PF3033_Dimplex.pdf                   ,Dimplex/PF3033_Dimplex.pdf
-PF3033       ,Dimplex ,PF3033_Dimplex.pdf                   ,Dimplex/PF3033_Dimplex.pdf
-690932XXXX   ,Dimplex ,PF3033_Dimplex.pdf                   ,Dimplex/PF3033_Dimplex.pdf
+sku,brand,pdf_name,pdf_location
+VF5452L,Dimplex,7213460100R05_EN.pdf,Dimplex/7213460100R05_EN.pdf
+VF2927L,Dimplex,7213460100R05_EN.pdf,Dimplex/7213460100R05_EN.pdf
+VFA2927,Dimplex,7213460100R05_EN.pdf,Dimplex/7213460100R05_EN.pdf
+CDFI1000-PRO,Dimplex,CDFI_Owners_Manual_7214300200R03.pdf,Dimplex/CDFI_Owners_Manual_7214300200R03.pdf
+CDFI500-PRO,Dimplex,CDFI_Owners_Manual_7214300200R03.pdf,Dimplex/CDFI_Owners_Manual_7214300200R03.pdf
+PF2325,Dimplex,PF3033_Dimplex.pdf,Dimplex/PF3033_Dimplex.pdf
+PF3033,Dimplex,PF3033_Dimplex.pdf,Dimplex/PF3033_Dimplex.pdf
+690932XXXX,Dimplex,PF3033_Dimplex.pdf,Dimplex/PF3033_Dimplex.pdf
+RBF30,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF30WC,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF36,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF36WC,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF36P,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF36PWC,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF42,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+RBF42WC,Dimplex,Revillusion_Dimplex.pdf,Dimplex/Revillusion_Dimplex.pdf
+XLF50,Dimplex,XLF100_Dimplex.pdf,Dimplex/XLF100_Dimplex.pdf
+XLF74,Dimplex,XLF100_Dimplex.pdf,Dimplex/XLF100_Dimplex.pdf
+XLF100,Dimplex,XLF100_Dimplex.pdf,Dimplex/XLF100_Dimplex.pdf

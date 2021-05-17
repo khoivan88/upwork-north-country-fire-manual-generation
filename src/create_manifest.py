@@ -3,7 +3,7 @@ import logging
 import re
 import csv
 from pathlib import Path, PurePath
-from typing import Tuple
+from typing import Tuple, List, Dict
 
 # import pdfminer
 
@@ -26,7 +26,8 @@ log = logging.getLogger("rich")
 
 CURRENT_FILEPATH = Path(__file__).resolve().parent
 DATA_FOLDER = CURRENT_FILEPATH.parent / 'src' / 'data'
-INPUT_FOLDER = DATA_FOLDER / 'manuals_test'
+# INPUT_FOLDER = DATA_FOLDER / 'manuals_test'
+INPUT_FOLDER = DATA_FOLDER / 'manuals'
 RESULT_FILE = DATA_FOLDER / 'manifest.csv'
 
 # file1 = INPUT_FOLDER / 'Dimplex' / '7213460100R05_EN.pdf'
@@ -43,8 +44,23 @@ def create_manifest_from_manuals(files, result_file):
 
 
 def extract_sku(file, result_file):
-    result = []
     brand = file.parent.name
+    result = extract_sku_from_brand(brand=brand, file=file)
+    # console.log(f'{result=}')
+    write_items_to_csv(file=result_file, lines=result)
+
+
+def extract_sku_from_brand(brand: str, file: PurePath
+                           ) -> List[Dict[str, str]]:
+    brand_dict = {
+        'Dimplex': extract_sku_from_dimplex_manuals,
+    }
+    return brand_dict[brand](brand=brand, file=file)
+
+
+def extract_sku_from_dimplex_manuals(brand: str, file: PurePath
+                                     ) -> List[Dict[str, str]]:
+    result = []
     laparams = LAParams(
         line_margin=0.62,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
     )
@@ -77,8 +93,7 @@ def extract_sku(file, result_file):
                               for sku in models])
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
-    # console.log(f'{result=}')
-    write_items_to_csv(file=result_file, lines=result)
+    return result
 
 
 def write_items_to_csv(file, lines):
@@ -101,6 +116,7 @@ if __name__ == '__main__':
     # Remove the result file if exists
     RESULT_FILE.unlink(missing_ok=True)
 
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Dimplex/*.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files, result_file=RESULT_FILE)
