@@ -189,15 +189,15 @@ def extract_sku_from_empire_manuals(brand: str, file: PurePath
                                        |fireplace
                                       )
                                       (.*)
-
-                                        #  (?:for\suse\son|series|model\(?s?\)?:?|fireplace)(.*)|(?!MH30033|DFEV)([a-zA-Z]{2,}\d+.*)
                                       ''',
                                       flags=re.MULTILINE | re.IGNORECASE | re.VERBOSE | re.DOTALL)
                 # containing_models = re_model.findall(element.get_text())
 
                 # Sometimes the line containing 'UL FILE NO. ...', remove that part:
                 # breakpoint()
-                filtered_text = re.sub(r'ul\sfile\sno.*', '', element.get_text(), flags=re.IGNORECASE | re.DOTALL)
+                filtered_text = re.sub(r'ul\sfile\sno.*', '',
+                                       element.get_text(),
+                                       flags=re.IGNORECASE | re.DOTALL)
                 containing_models = re_model.findall(filtered_text)
 
                 if not containing_models:
@@ -210,7 +210,9 @@ def extract_sku_from_empire_manuals(brand: str, file: PurePath
                     continue
 
                 # Filter out some noise, (words that looks like products number)
-                containing_models = [re.sub(r'MH30033|MH45034|Z21\.11\.2', '', word_group, flags=re.IGNORECASE | re.DOTALL)
+                containing_models = [re.sub(r'MH30033|MH45034|Z21\.11\.2', '',
+                                            word_group,
+                                            flags=re.IGNORECASE | re.DOTALL)
                                      for word_group in containing_models]
 
                 # check_element_after_this = True
@@ -238,7 +240,14 @@ def extract_sku_from_empire_manuals(brand: str, file: PurePath
 
 def expand_models(models: List[str]) -> List[str]:
     all_models = []
-    re_variant = re.compile(r'''(\S*?)(\(.*?\))(\w*)(\(.*?\))?(\w*)(\(.*?\))?(\w*)(\(.*?\))?(\S*?)\-?.*''',
+    # See here for regex explanation: https://regex101.com/r/WBU8g2/1/
+    re_variant = re.compile(r'''
+                            (\S*?)(\(.*?\))
+                            (\w*)(\(.*?\))?
+                            (\w*)(\(.*?\))?
+                            (\w*)(\(.*?\))?
+                            (\S*?)\-?.*
+                            ''',
                             flags=re.IGNORECASE | re.MULTILINE | re.VERBOSE)
     matches = []
     for model in models:
