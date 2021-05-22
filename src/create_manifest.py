@@ -39,6 +39,8 @@ INPUT_FOLDER = DATA_FOLDER / 'manuals'
 RESULT_FILE = DATA_FOLDER / 'manifest.csv'
 MODERNFLAMES_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_modernflames.csv'
 NAPOLEON_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_napoleon.csv'
+TRUENORTH_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_truenorth.csv'
+
 
 def init_argparse() -> argparse.ArgumentParser:
     """Creating CLI helper"""
@@ -649,3 +651,6 @@ if __name__ == '__main__':
 
     append_modernflames_manifest(file=RESULT_FILE,
                                  modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
+
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
