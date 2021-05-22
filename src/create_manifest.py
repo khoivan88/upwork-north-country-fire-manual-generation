@@ -38,6 +38,7 @@ DATA_FOLDER = CURRENT_FILEPATH.parent / 'src' / 'data'
 INPUT_FOLDER = DATA_FOLDER / 'manuals'
 RESULT_FILE = DATA_FOLDER / 'manifest.csv'
 MODERNFLAMES_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_modernflames.csv'
+NAPOLEON_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_napoleon.csv'
 
 def init_argparse() -> argparse.ArgumentParser:
     """Creating CLI helper"""
@@ -635,7 +636,7 @@ if __name__ == '__main__':
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')
     #          if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
     #          }
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Monessen/*.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Dimplex/*.pdf')}
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Monessen/PH18 - PH24 - PRIME HEAT.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files,
@@ -643,5 +644,8 @@ if __name__ == '__main__':
                                  parsing_mode=parsing_mode,
                                  debug=debug)
 
-    # append_modernflames_manifest(file=RESULT_FILE,
-    #                              modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
+
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
