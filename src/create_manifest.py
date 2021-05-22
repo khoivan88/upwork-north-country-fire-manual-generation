@@ -148,6 +148,7 @@ def extract_sku_from_brand(brand: str,
                            ) -> List[Dict[str, str]]:
     brand_dict = {
         'Dimplex': extract_sku_from_dimplex_manuals,
+        'DuraVent': extract_sku_from_duravent_manuals,
         'Empire': extract_sku_from_empire_manuals,
         'Majestic': extract_sku_from_majestic_manuals,
     }
@@ -185,6 +186,7 @@ def extract_sku_from_dimplex_manuals(brand: str,
                 _, models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
                 models = re.split(r',\s|\n', models.strip())
                 result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
                                 'brand': brand,
                                 'pdf_name': file.name,
                                 'manual_type': '',
@@ -193,6 +195,19 @@ def extract_sku_from_dimplex_manuals(brand: str,
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
     return result
+
+
+def extract_sku_from_duravent_manuals(brand: str,
+                                      file: PurePath,
+                                      debug: bool = False
+                                      ) -> List[Dict[str, str]]:
+    series = re.search(r'^duravent(.*)', file.stem, flags=re.IGNORECASE)
+    return [{'sku': '',
+             'series': series[1],
+             'brand': brand,
+             'pdf_name': file.name,
+             'manual_type': '',
+             'pdf_location': str(file.relative_to(INPUT_FOLDER))}]
 
 
 def extract_sku_from_empire_manuals(brand: str,
@@ -264,6 +279,7 @@ def extract_sku_from_empire_manuals(brand: str,
                 models = re.split(r',\s+|\s+|\n', models.strip())
                 expanded_models = expand_models(models=models)
                 result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
                                 'brand': brand,
                                 'pdf_name': file.name,
                                 'manual_type': '',
@@ -419,6 +435,7 @@ def extract_sku_from_majestic_manuals(brand: str,
                     models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
                 models = re.split(r',\s|\n|\s+', ''.join(models).strip())
                 result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
                                 'brand': brand,
                                 'pdf_name': file.name,
                                 'manual_type': manual_type[0] if manual_type else '',
@@ -448,7 +465,7 @@ if __name__ == '__main__':
     parsing_mode = 'sequential' if sequential else 'parallel'
 
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')}
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/*.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/DuraVent/*.pdf')}
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/VDY18,24,30 - DUZY.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files,
