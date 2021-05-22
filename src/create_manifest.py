@@ -7,12 +7,13 @@ import logging
 import re
 import csv
 from pathlib import Path, PurePath
-from typing import Tuple, List, Dict
+from typing import Tuple, List, Dict, Union
 from itertools import chain, combinations
 from functools import partial
 from multiprocessing import Pool
 from pdfminer.high_level import extract_text, extract_pages
 from pdfminer.layout import LTTextContainer, LTTextBoxHorizontal, LAParams
+import pandas as pd
 
 from rich.console import Console
 from rich.logging import RichHandler
@@ -34,9 +35,9 @@ log = logging.getLogger("rich")
 CURRENT_FILEPATH = Path(__file__).resolve().parent
 DATA_FOLDER = CURRENT_FILEPATH.parent / 'src' / 'data'
 # INPUT_FOLDER = DATA_FOLDER / 'manuals_test'
-INPUT_FOLDER = DATA_FOLDER / 'manuals'
+INPUT_FOLDER = DATA_FOLDER / 'manuals_test'
 RESULT_FILE = DATA_FOLDER / 'manifest.csv'
-
+MODERNFLAMES_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_modernflames.csv'
 
 def init_argparse() -> argparse.ArgumentParser:
     """Creating CLI helper"""
@@ -125,7 +126,6 @@ def extract_sku(file, result_file, debug: bool = False):
         log.error(error)
 
 
-
 def write_items_to_csv(file, lines):
     '''Write item without found images into csv file'''
     file_exists = Path(file).exists()
@@ -151,6 +151,7 @@ def extract_sku_from_brand(brand: str,
         'DuraVent': extract_sku_from_duravent_manuals,
         'Empire': extract_sku_from_empire_manuals,
         'Majestic': extract_sku_from_majestic_manuals,
+        'Modern Flames': extract_sku_from_modernflames_manuals,
     }
     return brand_dict[brand](brand=brand, file=file, debug=debug)
 
@@ -453,6 +454,110 @@ def extract_sku_from_majestic_manuals(brand: str,
     return result
 
 
+def extract_sku_from_modernflames_manuals(brand: str,
+                                          file: PurePath,
+                                          debug: bool = False
+                                          ) -> List[Dict[str, str]]:
+    """
+    ! Some Modern Flames Manuals files cannot be read by pdfminer because of strange codecs
+    Likely due to the PDF making process. Such as 'Manual-Sunset-Charred-Oak-singles-rev-3.pdf'
+    Therefore some values were added manually into `manifest_modernflames.csv`
+    """
+    # Use the manually edited `manifest_modernflames.csv`
+
+    # The following code works with most but not all PDF, comment out the top code to run these line
+    result = []
+
+    terms_to_search = ['model', 'series']
+
+    # Get type of manuals: 'installation' or 'owner'
+    manual_type = []
+
+    check_next_element = False
+
+    laparams = LAParams(
+        # line_margin=0.63,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
+        char_margin=2.3,
+    )
+    pages = extract_pages(file,
+                          page_numbers=[0],
+                          maxpages=1,
+                          laparams=laparams,
+                          )
+    # breakpoint()
+    for page_layout in pages:
+        for element in page_layout:
+            # !DEBUG
+            if debug and isinstance(element, LTTextBoxHorizontal):
+                console.log(element)
+                console.log(element.get_text())
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and 'manual' in element.get_text().lower()):
+                type = re.search(r'install\w+|owner',
+                                        element.get_text().lower(),
+                                        flags=re.IGNORECASE)
+                if type:
+                    manual_type.append(type[0])
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and (any(term in element.get_text().lower()
+                         for term in terms_to_search)
+                     or check_next_element)
+                ):
+            # if (isinstance(element, LTTextBoxHorizontal)):
+            #     breakpoint()
+                text = element.get_text()
+                # _, _, models = text.partition('\n')
+                # if ':' in text:
+                #     _, _, models = text.partition(':')
+
+                # Sometimes 'Model' is found in the middle of an element, in that case, split there
+                # Sometimes, there are two 'models:'
+                if 'model' in element.get_text().lower():
+                    _, *models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                else:
+                    models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                models = re.split(r',\s|\n|\s+|•|—', ''.join(models).strip(), flags=re.UNICODE)
+                result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
+                                'brand': brand,
+                                'pdf_name': file.name,
+                                'manual_type': manual_type[0] if manual_type else '',
+                                'pdf_location': str(file.relative_to(INPUT_FOLDER))}
+                              for sku in models
+                              if sku and is_likely_sku(text=sku)])
+                # console.log(f'{filename=}')
+                # console.log(f'{models=}')
+
+                # Signal the program to check the next pdf text element
+                # because sometimes, the series are not recognized to be in
+                # the same box as the one containing 'model'
+                check_next_element = 'model' in element.get_text().lower()
+    # console.log(f'{result=}')
+    return result
+
+
+def append_modernflames_manifest(file: Union[str, PurePath],
+                                 modernflamess_manifest: Union[str, PurePath]
+                                 ) -> None:
+    # with open(file, 'r') as f_master, open(modernflamess_manifest, 'r') as f_modernflames:
+    #     modernflames_dictreader = csv.DictReader(f_modernflames)
+    #     # modernflames_data = iter(modernflames_dictreader)
+
+    #     master_dictreader = csv.DictReader(f_master)
+    #     breakpoint()
+    #     if modernflames_dictreader.fieldnames == master_dictreader.fieldnames:
+    #         master_dictwriter = csv.DictWriter(f_master, delimiter=',',
+    #                                         lineterminator='\n',
+    #                                         fieldnames=master_dictreader.fieldnames)
+    #         master_dictwriter.writerows(modernflames_data)
+
+    #combine all files in the list
+    combined_csv = pd.concat([pd.read_csv(f) for f in [file, modernflamess_manifest] ])
+    #export to csv
+    combined_csv.to_csv(file, index=False)
+
 
 if __name__ == '__main__':
     # Remove the result file if exists
@@ -464,11 +569,18 @@ if __name__ == '__main__':
     sequential = parser.parse_args().sequential
     parsing_mode = 'sequential' if sequential else 'parallel'
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')}
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/DuraVent/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/VDY18,24,30 - DUZY.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')
+             if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
+             }
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Modern Flames/*.pdf')
+    #          if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
+    #          }
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Modern Flames/Manual-Homefire_REV3.1_single.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files,
                                  result_file=RESULT_FILE,
                                  parsing_mode=parsing_mode,
                                  debug=debug)
+
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)

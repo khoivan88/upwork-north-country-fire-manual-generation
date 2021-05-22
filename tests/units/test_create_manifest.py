@@ -13,7 +13,8 @@ from operator import itemgetter
 import pytest
 from src.create_manifest import (get_all_combinations,
                                  extract_sku_from_empire_manuals,
-                                 extract_sku_from_majestic_manuals)
+                                 extract_sku_from_majestic_manuals,
+                                 extract_sku_from_modernflames_manuals)
 
 
 CURRENT_FILEPATH = Path(__file__).resolve().parent.parent
@@ -596,6 +597,105 @@ def test_extract_sku_from_empire_manuals(brand, file, expect):
    )
 def test_extract_sku_from_majestic_manuals(brand, file, expect):
     answer = extract_sku_from_majestic_manuals(brand, file)
+    sorted_answer = sorted(answer, key=itemgetter('sku'))
+    sorted_expect = sorted(expect, key=itemgetter('sku'))
+    assert sorted_answer == sorted_expect
+
+
+@pytest.mark.parametrize(
+    "brand, file, expect", [
+        (
+            'Modern Flames',
+            INPUT_FOLDER / 'Modern Flames' / 'Manual - Slimline.pdf',
+            [{'sku': 'SPS-50B', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual - Slimline.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual - Slimline.pdf'},
+             {'sku': 'SPS-60B', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual - Slimline.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual - Slimline.pdf'},
+             {'sku': 'SPS-74B', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual - Slimline.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual - Slimline.pdf'},
+             {'sku': 'SPS-100B', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual - Slimline.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual - Slimline.pdf'},
+             ]
+        ),
+        (
+            'Modern Flames',
+            INPUT_FOLDER / 'Modern Flames' / 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+            [{'sku': 'LFV2-40/15-SH', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'},
+             {'sku': 'LFV2-60/15-SH', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'},
+             {'sku': 'LFV2-80/15-SH', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'},
+             {'sku': 'LFV2-100/15-SH', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'},
+             {'sku': 'LFV2-120/15-SH', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-GEN2-Rev2_singles.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'},
+             ]
+        ),
+        (
+            'Modern Flames',
+            INPUT_FOLDER / 'Modern Flames' / 'Manual-Homefire_REV3.1_single.pdf',
+            [{'sku': 'HF36CBI', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Homefire_REV3.1_single.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Homefire_REV3.1_single.pdf'},
+             {'sku': 'HF42CBI', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Homefire_REV3.1_single.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Homefire_REV3.1_single.pdf'},
+             {'sku': 'HF60CBI', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Homefire_REV3.1_single.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Homefire_REV3.1_single.pdf'},
+             ]
+        ),
+        (
+            'Modern Flames',
+            INPUT_FOLDER / 'Modern Flames' / 'Manual-Landscape-Pro-Multiview.pdf',
+            [{'sku': 'LPM-4416/INT', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-Pro-Multiview.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'},
+             {'sku': 'LPM-5616/INT', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-Pro-Multiview.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'},
+             {'sku': 'LPM-6816/INT', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-Pro-Multiview.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'},
+             {'sku': 'LPM-8016/INT', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-Pro-Multiview.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'},
+             {'sku': 'LPM-9616/INT', 'series': '', 'brand': 'Modern Flames',
+              'pdf_name': 'Manual-Landscape-Pro-Multiview.pdf',
+              'manual_type': '',
+              'pdf_location': 'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'},
+             ]
+        ),
+       ]
+   )
+def test_extract_sku_from_modernflames_manuals(brand, file, expect):
+    answer = extract_sku_from_modernflames_manuals(brand, file)
     sorted_answer = sorted(answer, key=itemgetter('sku'))
     sorted_expect = sorted(expect, key=itemgetter('sku'))
     assert sorted_answer == sorted_expect

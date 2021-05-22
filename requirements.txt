@@ -1,3 +1,4 @@
 pytest==6.2.4
+pandas==1.2.4
 pdfminer==20191125
-rich==10.2.1
+rich==10.2.2
