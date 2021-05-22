@@ -1,11 +1,60 @@
 sku,series,brand,pdf_name,manual_type,pdf_location
-,Dvl,DuraVent,duraVentDvl.pdf,,DuraVent/duraVentDvl.pdf
-,DuraFlexAluminum,DuraVent,duraVentDuraFlexAluminum.pdf,,DuraVent/duraVentDuraFlexAluminum.pdf
-,RoundGasVent-TypeBGasVent,DuraVent,duraVentRoundGasVent-TypeBGasVent.pdf,,DuraVent/duraVentRoundGasVent-TypeBGasVent.pdf
-,DirectVentProHorizColinearRelineKit,DuraVent,duraVentDirectVentProHorizColinearRelineKit.pdf,,DuraVent/duraVentDirectVentProHorizColinearRelineKit.pdf
-,DirectProHorizontalSup,DuraVent,duraVentDirectProHorizontalSup.pdf,,DuraVent/duraVentDirectProHorizontalSup.pdf
-,PelletVentPro,DuraVent,duraVentPelletVentPro.pdf,,DuraVent/duraVentPelletVentPro.pdf
-,DirectVentProChimneyConversion,DuraVent,duraVentDirectVentProChimneyConversion.pdf,,DuraVent/duraVentDirectVentProChimneyConversion.pdf
-,DirectProChimneyLinerSystem,DuraVent,duraVentDirectProChimneyLinerSystem.pdf,,DuraVent/duraVentDirectProChimneyLinerSystem.pdf
-,DirectPro,DuraVent,duraVentDirectPro.pdf,,DuraVent/duraVentDirectPro.pdf
-,DuraBlack,DuraVent,duraVentDuraBlack.pdf,,DuraVent/duraVentDuraBlack.pdf
+MCUF36E-F,,Monessen,MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf,,Monessen/MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf
+MCUF36D-R,,Monessen,MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf,,Monessen/MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf
+MCUF42E-F,,Monessen,MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf,,Monessen/MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf
+MCUF42D-R,,Monessen,MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf,,Monessen/MCUF36E-F - MCUF36D-R - MCUF42E-F - MCUF42D-R - MAGNUM.pdf
+VFI33L(N/P)(V/I),,Monessen,VFI33 - SOLSTICE.pdf,,Monessen/VFI33 - SOLSTICE.pdf
+VFI33C(N/P)(V/I),,Monessen,VFI33 - SOLSTICE.pdf,,Monessen/VFI33 - SOLSTICE.pdf
+MJ22NV/PV,,Monessen,MJ27NV-PV - MJ27NV-PV - MOJO.pdf,installation,Monessen/MJ27NV-PV - MJ27NV-PV - MOJO.pdf
+MJ27NV/PV,,Monessen,MJ27NV-PV - MJ27NV-PV - MOJO.pdf,installation,Monessen/MJ27NV-PV - MJ27NV-PV - MOJO.pdf
+LSTF36-B,,Monessen,LSTF36-B - LO-RIDER SEE THRU.pdf,installation,Monessen/LSTF36-B - LO-RIDER SEE THRU.pdf
+AVFL42NIP,,Monessen,AVFL42NIP-PIP - 05.20.pdf,,Monessen/AVFL42NIP-PIP - 05.20.pdf
+AVFL42PIP,,Monessen,AVFL42NIP-PIP - 05.20.pdf,,Monessen/AVFL42NIP-PIP - 05.20.pdf
+NB18NV/PV,,Monessen,NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf,installation,Monessen/NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf
+NB24NV/PV,,Monessen,NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf,installation,Monessen/NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf
+NB18NIF/PIF,,Monessen,NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf,installation,Monessen/NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf
+NB24NIF/PIF,,Monessen,NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf,installation,Monessen/NATURAL BLAZE Series - Owner_s-Install Manual - NB18NV-PV_NB24NV-PV_NB18NIF-PIF_NB24NIF-PIFVF Gas Burner (Post October 2019).pdf
+GCUF,,Monessen,GCUF - GRUF.pdf,,Monessen/GCUF - GRUF.pdf
+GRUF,,Monessen,GCUF - GRUF.pdf,,Monessen/GCUF - GRUF.pdf
+SD30PV,,Monessen,SD30PV - SD30NV - SUNDANCE.pdf,installation,Monessen/SD30PV - SD30NV - SUNDANCE.pdf
+SD30NV,,Monessen,SD30PV - SD30NV - SUNDANCE.pdf,installation,Monessen/SD30PV - SD30NV - SUNDANCE.pdf
+EYF18,,Monessen,EYF18 - EYF24 - MOUNTAIN OAK.pdf,,Monessen/EYF18 - EYF24 - MOUNTAIN OAK.pdf
+EYF24,,Monessen,EYF18 - EYF24 - MOUNTAIN OAK.pdf,,Monessen/EYF18 - EYF24 - MOUNTAIN OAK.pdf
+AVFL60NIP,,Monessen,AVFL60NIP - AVFL60PIP - ARTISAN.pdf,owner,Monessen/AVFL60NIP - AVFL60PIP - ARTISAN.pdf
+AVFL60PIP,,Monessen,AVFL60NIP - AVFL60PIP - ARTISAN.pdf,owner,Monessen/AVFL60NIP - AVFL60PIP - ARTISAN.pdf
+LCUF32CR-B,,Monessen,LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf,installation,Monessen/LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf
+LCUF36CR-B,,Monessen,LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf,installation,Monessen/LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf
+LCUF42CR-B,,Monessen,LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf,installation,Monessen/LCUF32CR-B - LCUF36CR-B - LCUF42CR-B - LO-RIDER.pdf
+LYR18NV/PV,,Monessen,LYR18 - LYR24 - LYR30 - LYRIC.pdf,installation,Monessen/LYR18 - LYR24 - LYR30 - LYRIC.pdf
+LYR24NV/PV,,Monessen,LYR18 - LYR24 - LYR30 - LYRIC.pdf,installation,Monessen/LYR18 - LYR24 - LYR30 - LYRIC.pdf
+LYR30NV/PV,,Monessen,LYR18 - LYR24 - LYR30 - LYRIC.pdf,installation,Monessen/LYR18 - LYR24 - LYR30 - LYRIC.pdf
+GG18NV/PV,,Monessen,GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf,installation,Monessen/GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf
+GG24NV/PV,,Monessen,GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf,installation,Monessen/GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf
+GG18NIF/PIF,,Monessen,GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf,installation,Monessen/GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf
+GG24NIF/PIF,,Monessen,GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf,installation,Monessen/GG18NV-PV-GG18NIF-PIF-GG24NV-PV-GG24NIF-PIF - GLOW GETTER 03.20.pdf
+NB18,,Monessen,NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf,,Monessen/NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf
+NB24,,Monessen,NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf,,Monessen/NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf
+NB18SCR,,Monessen,NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf,,Monessen/NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf
+NB24SCR,,Monessen,NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf,,Monessen/NB18 - NB24 - NB18CSR - NB24CSR - NATURAL BLAZE.pdf
+PH18,,Monessen,PH18 - PH24 - PRIME HEAT.pdf,,Monessen/PH18 - PH24 - PRIME HEAT.pdf
+PH18R,,Monessen,PH18 - PH24 - PRIME HEAT.pdf,,Monessen/PH18 - PH24 - PRIME HEAT.pdf
+PH24,,Monessen,PH18 - PH24 - PRIME HEAT.pdf,,Monessen/PH18 - PH24 - PRIME HEAT.pdf
+PH24R,,Monessen,PH18 - PH24 - PRIME HEAT.pdf,,Monessen/PH18 - PH24 - PRIME HEAT.pdf
+PH30R,,Monessen,PH18 - PH24 - PRIME HEAT.pdf,,Monessen/PH18 - PH24 - PRIME HEAT.pdf
+NBST27,,Monessen,NBST27 - NATURAL BLAZE SEE THRU.pdf,,Monessen/NBST27 - NATURAL BLAZE SEE THRU.pdf
+BUF36,,Monessen,BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf,installation,Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf
+BUF36-R,,Monessen,BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf,installation,Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf
+BUF42,,Monessen,BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf,installation,Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf
+BUF42-R,,Monessen,BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf,installation,Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf
+VFF32LI,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF36LI,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF32LV,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF36LV,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF32CI,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF36CI,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF32CV,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFF36CV,,Monessen,VFF Fireplace System - ARIA.pdf,,Monessen/VFF Fireplace System - ARIA.pdf
+VFC24C,,Monessen,VFC - SYMPHONY.pdf,,Monessen/VFC - SYMPHONY.pdf
+VFC24L,,Monessen,VFC - SYMPHONY.pdf,,Monessen/VFC - SYMPHONY.pdf
+VFC32C,,Monessen,VFC - SYMPHONY.pdf,,Monessen/VFC - SYMPHONY.pdf
+VFC32L,,Monessen,VFC - SYMPHONY.pdf,,Monessen/VFC - SYMPHONY.pdf

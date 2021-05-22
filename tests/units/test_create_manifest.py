@@ -14,7 +14,8 @@ import pytest
 from src.create_manifest import (get_all_combinations,
                                  extract_sku_from_empire_manuals,
                                  extract_sku_from_majestic_manuals,
-                                 extract_sku_from_modernflames_manuals)
+                                 extract_sku_from_modernflames_manuals,
+                                 extract_sku_from_monessen_manuals)
 
 
 CURRENT_FILEPATH = Path(__file__).resolve().parent.parent
@@ -696,6 +697,89 @@ def test_extract_sku_from_majestic_manuals(brand, file, expect):
    )
 def test_extract_sku_from_modernflames_manuals(brand, file, expect):
     answer = extract_sku_from_modernflames_manuals(brand, file)
+    sorted_answer = sorted(answer, key=itemgetter('sku'))
+    sorted_expect = sorted(expect, key=itemgetter('sku'))
+    assert sorted_answer == sorted_expect
+
+
+@pytest.mark.parametrize(
+    "brand, file, expect", [
+        (
+            'Monessen',
+            INPUT_FOLDER / 'Monessen' / 'AVFL42NIP-PIP - 05.20.pdf',
+            [{'sku': 'AVFL42NIP', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'AVFL42NIP-PIP - 05.20.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/AVFL42NIP-PIP - 05.20.pdf'},
+             {'sku': 'AVFL42PIP', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'AVFL42NIP-PIP - 05.20.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/AVFL42NIP-PIP - 05.20.pdf'},
+             ]
+        ),
+        (
+            'Monessen',
+            INPUT_FOLDER / 'Monessen' / 'BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf',
+            [{'sku': 'BUF36', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf'},
+             {'sku': 'BUF36-R', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf'},
+             {'sku': 'BUF42', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf'},
+             {'sku': 'BUF42-R', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Monessen/BUF36 - BUF36-R - BUF42 - BUF42-R - EXACTA.pdf'},
+             ]
+        ),
+        (
+            'Monessen',
+            INPUT_FOLDER / 'Monessen' / 'GCUF - GRUF.pdf',
+            [{'sku': 'GCUF', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'GCUF - GRUF.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/GCUF - GRUF.pdf'},
+             {'sku': 'GRUF', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'GCUF - GRUF.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/GCUF - GRUF.pdf'},
+             ]
+        ),
+        (
+            'Monessen',
+            INPUT_FOLDER / 'Monessen' / 'PH18 - PH24 - PRIME HEAT.pdf',
+            [{'sku': 'PH18', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'PH18 - PH24 - PRIME HEAT.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/PH18 - PH24 - PRIME HEAT.pdf'},
+             {'sku': 'PH24', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'PH18 - PH24 - PRIME HEAT.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/PH18 - PH24 - PRIME HEAT.pdf'},
+             {'sku': 'PH18R', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'PH18 - PH24 - PRIME HEAT.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/PH18 - PH24 - PRIME HEAT.pdf'},
+             {'sku': 'PH24R', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'PH18 - PH24 - PRIME HEAT.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/PH18 - PH24 - PRIME HEAT.pdf'},
+             {'sku': 'PH30R', 'series': '', 'brand': 'Monessen',
+              'pdf_name': 'PH18 - PH24 - PRIME HEAT.pdf',
+              'manual_type': '',
+              'pdf_location': 'Monessen/PH18 - PH24 - PRIME HEAT.pdf'},
+             ]
+        ),
+       ]
+   )
+def test_extract_sku_from_monessen_manuals(brand, file, expect):
+    answer = extract_sku_from_monessen_manuals(brand, file)
     sorted_answer = sorted(answer, key=itemgetter('sku'))
     sorted_expect = sorted(expect, key=itemgetter('sku'))
     assert sorted_answer == sorted_expect
