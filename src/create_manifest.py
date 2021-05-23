@@ -748,11 +748,11 @@ if __name__ == '__main__':
                                  parsing_mode=parsing_mode,
                                  debug=debug)
 
-    # append_modernflames_manifest(file=RESULT_FILE,
-    #                              modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
 
-    # append_modernflames_manifest(file=RESULT_FILE,
-    #                              modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
 
-    # append_modernflames_manifest(file=RESULT_FILE,
-    #                              modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
+    append_modernflames_manifest(file=RESULT_FILE,
+                                 modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
