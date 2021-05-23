@@ -14,6 +14,7 @@ from multiprocessing import Pool
 from pdfminer.high_level import extract_text, extract_pages
 from pdfminer.layout import LTTextContainer, LTTextBoxHorizontal, LAParams
 import pandas as pd
+from Crypto.Cipher import AES
 
 from rich.console import Console
 from rich.logging import RichHandler
@@ -126,7 +127,7 @@ def extract_sku(file, result_file, debug: bool = False):
     except Exception as error:
         print()
         log.error(f'{file}')
-        log.error(error)
+        log.exception(error)
 
 
 def write_items_to_csv(file, lines):
@@ -156,6 +157,7 @@ def extract_sku_from_brand(brand: str,
         'Majestic': extract_sku_from_majestic_manuals,
         'Modern Flames': extract_sku_from_modernflames_manuals,
         'Monessen': extract_sku_from_monessen_manuals,
+        'Superior': extract_sku_from_superior_manuals,
     }
     return brand_dict[brand](brand=brand, file=file, debug=debug)
 
@@ -616,6 +618,80 @@ def extract_sku_from_monessen_manuals(brand: str,
     return result
 
 
+def extract_sku_from_superior_manuals(brand: str,
+                                      file: PurePath,
+                                      debug: bool = False
+                                      ) -> List[Dict[str, str]]:
+    result = []
+    # Exception:
+    exceptions = []
+
+    # Get type of manuals: 'installation' or 'owner'
+    manual_type = []
+
+    check_next_element = False
+
+    laparams = LAParams(
+        line_margin=0.63,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
+        # boxes_flow=1,
+    )
+    pages = extract_pages(file,
+                        #   password='',
+                          page_numbers=[0],
+                          maxpages=1,
+                          laparams=laparams
+                          )
+    for page_layout in pages:
+        for element in page_layout:
+            # # !DEBUG
+            if debug and isinstance(element, LTTextBoxHorizontal):
+                console.log(element)
+                console.log(element.get_text())
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and 'manual' in element.get_text().lower()):
+                type = re.search(r'install\w+|owner',
+                                        element.get_text().lower(),
+                                        flags=re.IGNORECASE)
+                if type:
+                    manual_type.append(type[0])
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and ('model' in element.get_text().lower()
+                     or check_next_element)
+                ):
+                # breakpoint()
+                text = element.get_text()
+                # _, _, models = text.partition('\n')
+                # if ':' in text:
+                #     _, _, models = text.partition(':')
+
+                # Sometimes 'Model' is found in the middle of an element, in that case, split there
+                # Sometimes, there are two 'models:'
+                if 'model' in element.get_text().lower():
+                    _, *models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                else:
+                    models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                models = re.split(r',\s|\n|\s+', ''.join(models).strip())
+                result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
+                                'brand': brand,
+                                'pdf_name': file.name,
+                                'manual_type': manual_type[0] if manual_type else '',
+                                'pdf_location': str(file.relative_to(INPUT_FOLDER))}
+                              for sku in models
+                              if sku and is_likely_sku(text=sku, exceptions=exceptions)])
+                # console.log(f'{filename=}')
+                # console.log(f'{models=}')
+
+                # Signal the program to check the next pdf text element
+                # because sometimes, the series are not recognized to be in
+                # the same box as the one containing 'model'
+                check_next_element = 'model' in element.get_text().lower()
+    # console.log(f'{result=}')
+    return result
+
+
 def append_modernflames_manifest(file: Union[str, PurePath],
                                  modernflamess_manifest: Union[str, PurePath]
                                  ) -> None:
@@ -638,19 +714,19 @@ if __name__ == '__main__':
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')
     #          if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
     #          }
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Dimplex/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Monessen/PH18 - PH24 - PRIME HEAT.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files,
                                  result_file=RESULT_FILE,
                                  parsing_mode=parsing_mode,
                                  debug=debug)
 
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
+    # append_modernflames_manifest(file=RESULT_FILE,
+    #                              modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
 
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
+    # append_modernflames_manifest(file=RESULT_FILE,
+    #                              modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
 
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
+    # append_modernflames_manifest(file=RESULT_FILE,
+    #                              modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
