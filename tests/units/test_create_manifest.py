@@ -15,7 +15,8 @@ from src.create_manifest import (get_all_combinations,
                                  extract_sku_from_empire_manuals,
                                  extract_sku_from_majestic_manuals,
                                  extract_sku_from_modernflames_manuals,
-                                 extract_sku_from_monessen_manuals)
+                                 extract_sku_from_monessen_manuals,
+                                 extract_sku_from_superior_manuals)
 
 
 CURRENT_FILEPATH = Path(__file__).resolve().parent.parent
@@ -780,6 +781,91 @@ def test_extract_sku_from_modernflames_manuals(brand, file, expect):
    )
 def test_extract_sku_from_monessen_manuals(brand, file, expect):
     answer = extract_sku_from_monessen_manuals(brand, file)
+    sorted_answer = sorted(answer, key=itemgetter('sku'))
+    sorted_expect = sorted(expect, key=itemgetter('sku'))
+    assert sorted_answer == sorted_expect
+
+
+@pytest.mark.parametrize(
+    "brand, file, expect", [
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
+            [{'sku': 'ERT3033', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
+             {'sku': 'ERT3036', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
+             {'sku': 'MPE-33-N', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
+             {'sku': 'MPE-36-N', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
+             ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+            [{'sku': 'ERL2045', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'ERL2055', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'ERL3060', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'ERL3072', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'ERL3084', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'ERL3100', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-45S', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-55S', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-60D', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-72D', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-84D', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             {'sku': 'MPE-100D', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
+             ]
+        ),
+       ]
+   )
+def test_extract_sku_from_superior_manuals(brand, file, expect):
+    answer = extract_sku_from_superior_manuals(brand, file)
     sorted_answer = sorted(answer, key=itemgetter('sku'))
     sorted_expect = sorted(expect, key=itemgetter('sku'))
     assert sorted_answer == sorted_expect

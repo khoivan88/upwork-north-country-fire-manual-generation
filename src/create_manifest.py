@@ -127,7 +127,8 @@ def extract_sku(file, result_file, debug: bool = False):
     except Exception as error:
         print()
         log.error(f'{file}')
-        log.exception(error)
+        # log.exception(error)
+        log.error(error)
 
 
 def write_items_to_csv(file, lines):
@@ -624,7 +625,7 @@ def extract_sku_from_superior_manuals(brand: str,
                                       ) -> List[Dict[str, str]]:
     result = []
     # Exception:
-    exceptions = []
+    exceptions = ['capella 33', 'capella 36']
 
     # Get type of manuals: 'installation' or 'owner'
     manual_type = []
@@ -632,8 +633,9 @@ def extract_sku_from_superior_manuals(brand: str,
     check_next_element = False
 
     laparams = LAParams(
-        line_margin=0.63,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
+        line_margin=1.5,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
         # boxes_flow=1,
+        # char_margin=3,
     )
     pages = extract_pages(file,
                         #   password='',
@@ -673,21 +675,24 @@ def extract_sku_from_superior_manuals(brand: str,
                 else:
                     models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
                 models = re.split(r',\s|\n|\s+', ''.join(models).strip())
-                result.extend([{'sku': sku.split(' ')[0],
+                new_result = [{'sku': sku.split(' ')[0],
                                 'series': '',
                                 'brand': brand,
                                 'pdf_name': file.name,
                                 'manual_type': manual_type[0] if manual_type else '',
                                 'pdf_location': str(file.relative_to(INPUT_FOLDER))}
                               for sku in models
-                              if sku and is_likely_sku(text=sku, exceptions=exceptions)])
+                              if sku and is_likely_sku(text=sku, exceptions=exceptions)]
+
+                if new_result:
+                    result.extend(new_result)
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
 
                 # Signal the program to check the next pdf text element
                 # because sometimes, the series are not recognized to be in
                 # the same box as the one containing 'model'
-                check_next_element = 'model' in element.get_text().lower()
+                check_next_element = 'model' in element.get_text().lower() or len(new_result) > 0
     # console.log(f'{result=}')
     return result
 
@@ -714,8 +719,8 @@ if __name__ == '__main__':
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')
     #          if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
     #          }
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf')}
+    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf')}
     # breakpoint()
     create_manifest_from_manuals(files=files,
                                  result_file=RESULT_FILE,
