@@ -337,7 +337,7 @@ def is_likely_sku(text: str, exceptions=None) -> bool:
     if exceptions and text.lower() in exceptions:
         return True
 
-    containing_letters_and_digits = re.search(r'[a-z]+\-*\d+',
+    containing_letters_and_digits = re.search(r'[a-z]{2,}\-*\d+',
                                               text,
                                               flags=re.IGNORECASE)
     return not text.encode().isalpha() and containing_letters_and_digits
@@ -627,15 +627,18 @@ def extract_sku_from_superior_manuals(brand: str,
     # Exception:
     exceptions = ['capella 33', 'capella 36']
 
+    # List of text that looks like SKU but not
+    known_not_sku_list = ['F19-008']
+
     # Get type of manuals: 'installation' or 'owner'
     manual_type = []
 
     check_next_element = False
 
     laparams = LAParams(
-        line_margin=1.5,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
-        # boxes_flow=1,
-        # char_margin=3,
+        line_margin=2.2,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
+        # boxes_flow=-0.5,
+        char_margin=3,
     )
     pages = extract_pages(file,
                         #   password='',
@@ -651,7 +654,7 @@ def extract_sku_from_superior_manuals(brand: str,
                 console.log(element.get_text())
 
             if (isinstance(element, LTTextBoxHorizontal)
-                and 'manual' in element.get_text().lower()):
+                and 'instructions' in element.get_text().lower()):
                 type = re.search(r'install\w+|owner',
                                         element.get_text().lower(),
                                         flags=re.IGNORECASE)
@@ -664,16 +667,19 @@ def extract_sku_from_superior_manuals(brand: str,
                 ):
                 # breakpoint()
                 text = element.get_text()
-                # _, _, models = text.partition('\n')
-                # if ':' in text:
-                #     _, _, models = text.partition(':')
+
+                # Sometimes the line containing 'UL FILE NO. ...', remove that part:
+                # breakpoint()
+                re_report_number_line = re.compile(r'report\s+no.*',
+                                                   flags=re.IGNORECASE | re.DOTALL)
+                filtered_text = re_report_number_line.sub('', text)
 
                 # Sometimes 'Model' is found in the middle of an element, in that case, split there
                 # Sometimes, there are two 'models:'
                 if 'model' in element.get_text().lower():
-                    _, *models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                    _, *models = re.split(r'model\(?s?\)?:?', filtered_text, flags=re.IGNORECASE)
                 else:
-                    models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                    models = re.split(r'model\(?s?\)?:?', filtered_text, flags=re.IGNORECASE)
                 models = re.split(r',\s|\n|\s+', ''.join(models).strip())
                 new_result = [{'sku': sku.split(' ')[0],
                                 'series': '',
@@ -682,7 +688,10 @@ def extract_sku_from_superior_manuals(brand: str,
                                 'manual_type': manual_type[0] if manual_type else '',
                                 'pdf_location': str(file.relative_to(INPUT_FOLDER))}
                               for sku in models
-                              if sku and is_likely_sku(text=sku, exceptions=exceptions)]
+                              if (sku
+                                #   and sku not in known_not_sku_list
+                                  and is_likely_sku(text=sku, exceptions=exceptions))
+                              ]
 
                 if new_result:
                     result.extend(new_result)
@@ -692,7 +701,11 @@ def extract_sku_from_superior_manuals(brand: str,
                 # Signal the program to check the next pdf text element
                 # because sometimes, the series are not recognized to be in
                 # the same box as the one containing 'model'
-                check_next_element = 'model' in element.get_text().lower() or len(new_result) > 0
+                check_next_element = ('model' in element.get_text().lower()
+                                      or len(new_result) > 0
+                                      or re_report_number_line.search(text)
+                                      or re.search(r'P\d+\-\d{2}|\s+', text)    # Sometimes the barcode (e.g. 'P126718-01') get in between the 'Models' line and the SKUs
+                                      )
     # console.log(f'{result=}')
     return result
 
@@ -716,11 +729,19 @@ if __name__ == '__main__':
     sequential = parser.parse_args().sequential
     parsing_mode = 'sequential' if sequential else 'parallel'
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/*.pdf')
-    #          if 'Modern Flames' not in str(f)    # Ignore 'Modern Flames' manual since some files has encoding issue
-    #          }
-    files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf')}
+    brands_to_ignore = ['Modern Flames',    # Ignore 'Modern Flames' manual since some files has encoding issue
+                        'Napoleon',
+                        'True North'
+                        ]
+
+    files = {f.resolve()
+             for f in Path(INPUT_FOLDER).glob('**/*.pdf')
+             if not any(brand in str(f) for brand in brands_to_ignore)
+             }
+
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/VRT6036, 42, 60.pdf')}
+
     # breakpoint()
     create_manifest_from_manuals(files=files,
                                  result_file=RESULT_FILE,

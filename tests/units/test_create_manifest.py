@@ -224,8 +224,8 @@ def test_get_all_combinations(match: Tuple[str], expect: Set[str]):
               'pdf_location': 'Empire/DVCC323642BP-4-Installer.pdf'}]
         ),
         (
-           'Empire',
-           INPUT_FOLDER / 'Empire' / 'DVLL36BP92NP-1 DVLL48BP92NP-2 40375-0-0519-Installer.pdf',
+            'Empire',
+            INPUT_FOLDER / 'Empire' / 'DVLL36BP92NP-1 DVLL48BP92NP-2 40375-0-0519-Installer.pdf',
             [{'sku': 'DVLL36BP92P', 'series': '', 'brand': 'Empire',
               'pdf_name': 'DVLL36BP92NP-1 DVLL48BP92NP-2 40375-0-0519-Installer.pdf',
               'manual_type': '',
@@ -793,19 +793,19 @@ def test_extract_sku_from_monessen_manuals(brand, file, expect):
             INPUT_FOLDER / 'Superior' / '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
             [{'sku': 'ERT3033', 'series': '', 'brand': 'Superior',
               'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
              {'sku': 'ERT3036', 'series': '', 'brand': 'Superior',
               'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
              {'sku': 'MPE-33-N', 'series': '', 'brand': 'Superior',
               'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
              {'sku': 'MPE-36-N', 'series': '', 'brand': 'Superior',
               'pdf_name': '900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/900974-00_A_IHP_Capella33-36_ERT3033-36_MPE-33-36_IICO.pdf'},
              ]
         ),
@@ -814,53 +814,265 @@ def test_extract_sku_from_monessen_manuals(brand, file, expect):
             INPUT_FOLDER / 'Superior' / '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
             [{'sku': 'ERL2045', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'ERL2055', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'ERL3060', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'ERL3072', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'ERL3084', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'ERL3100', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-45S', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-55S', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-60D', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-72D', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-84D', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              {'sku': 'MPE-100D', 'series': '', 'brand': 'Superior',
               'pdf_name': '901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf',
-              'manual_type': '',
+              'manual_type': 'installation',
               'pdf_location': 'Superior/901042-00_A_IHP_Sentry_Plexus_ERL_45-55-60-72-84-100_Elec_FPs_IICO.pdf'},
              ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+            [{'sku': 'DRL2035TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+             {'sku': 'DRL2045TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+             {'sku': 'DRL2055TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+             {'sku': 'DRL3535TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+             {'sku': 'DRL3545TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+             {'sku': 'DRL3555TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900994-00_J_SUP_DRL2000_DRL3500_35-45-55_TEN_DV_FP_SIT-PF1_PF2_IICO.pdf'},
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '901068-00_NC_IHP_HeatFlo_Kit_HTFLO-Compass_INSTR.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '901068-00_NC_IHP_HeatFlo_Kit_HTFLO-Compass_INSTR.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901068-00_NC_IHP_HeatFlo_Kit_HTFLO-Compass_INSTR.pdf'}
+             for sku in ['Compass45TEN', 'CompassDLX45TEN', 'Compass55TEN',
+                         'CompassDLX55TEN', 'DRL2000', 'DRL3500',
+                         'HTFLO-DV45', 'HTFLO-DV55',    # Not exactly Models number but tolerable
+                        #  'F4454', 'F4453',              # Not exactly Models number but tolerable
+                         ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf',
+            [{'sku': 'DRL4060TEN-B', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf'},
+             {'sku': 'DRL4072TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf'},
+             {'sku': 'DRL4084TEN', 'series': '', 'brand': 'Superior',
+              'pdf_name': '901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901080-00_D_SUP_DRL4000_60-72-84_TEN-B_DV_FPs_SIT-PF1_IICO.pdf'},
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900285-00_K_SUP_DRC3000_DRT3000_DV_Fireplace_ECO_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '900285-00_K_SUP_DRC3000_DRT3000_DV_Fireplace_ECO_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900285-00_K_SUP_DRC3000_DRT3000_DV_Fireplace_ECO_IICO.pdf'}
+             for sku in ['DRT3033TMN','DRT3033TMP','DRT3033TEN','DRT3033TEP',
+                         'DRT3033RMN','DRT3033RMP','DRT3033REN','DRT3033REP',
+                         'DRT3035DMN','DRT3035DMP','DRT3035DEN','DRT3035DEP',
+                         'DRC3035DEN','DRT3040DMN','DRT3040DMP','DRT3040DEN',
+                         'DRT3040DEP','DRC3040DEN','DRT3045DMN','DRT3045DMP',
+                         'DRT3045DEN','DRT3045DEP',
+                         ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900905-00_A_SUP_DRC3500_35-40-45_DV_FP_ECO_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '900905-00_A_SUP_DRC3500_35-40-45_DV_FP_ECO_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900905-00_A_SUP_DRC3500_35-40-45_DV_FP_ECO_IICO.pdf'}
+             for sku in ['DRC3535DEN-B', 'DRC3535DEP-B', 'DRC3540DEN-B',
+                         'DRC3540DEP-B', 'DRC3545DEN-B', 'DRC3545DEP-B',
+                         ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRI3030-2530TEN_IPI_DV_Insert_EN_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRI3030-2530TEN_IPI_DV_Insert_EN_IICO.pdf',
+              'manual_type': '',
+              'pdf_location': 'Superior/DRI3030-2530TEN_IPI_DV_Insert_EN_IICO.pdf'}
+             for sku in ['DRI3030TEN', 'DRI2530TEN']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf'}
+             for sku in ['DRL3042TEN', 'DRL3042TEP', 'DRL3054TEN', 'DRL3054TEP']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRL4543TEN-TEP_DV_Linear_DV_Fireplace_AMF_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRL4543TEN-TEP_DV_Linear_DV_Fireplace_AMF_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/DRL4543TEN-TEP_DV_Linear_DV_Fireplace_AMF_IICO.pdf'}
+             for sku in ['DRL4543TEN', 'DRL4543TEP']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRL6060TEN Manual 901027-00.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRL6060TEN Manual 901027-00.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/DRL6060TEN Manual 901027-00.pdf'}
+             for sku in ['DRL6060TEN']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRT-DRC2000_33-35-40-45_SIT-MV_SIT-PF_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRT-DRC2000_33-35-40-45_SIT-MV_SIT-PF_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/DRT-DRC2000_33-35-40-45_SIT-MV_SIT-PF_IICO.pdf'}
+             for sku in ['DRT2033TEN','DRT2033TEP','DRT2033REN','DRT2033REP','DRT2035TMN',
+                         'DRT2035TMP','DRT2035TEN','DRT2035TEP','DRT2035RMN','DRT2035RMP',
+                         'DRT2035REN','DRT2035REP','DRT2040TMN','DRT2040TMP','DRT2040TEN',
+                         'DRT2040TEP','DRT2040RMN','DRT2040RMP','DRT2040REN','DRT2040REP',
+                         'DRT2045DMN','DRT2045DMP','DRT2045DEN','DRT2045DEP','DRC2033TEN',
+                         'DRC2033REN','DRC2035TMN','DRC2035TEN','DRC2035RMN','DRC2035REN',
+                         'DRC2040TMN','DRC2040TEN','DRC2040RMN','DRC2040REN','DRC2045DEN',
+                        ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'DRT35ST-PF_(MPD35ST-PF)_DV_Fireplace_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'DRT35ST-PF_(MPD35ST-PF)_DV_Fireplace_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/DRT35ST-PF_(MPD35ST-PF)_DV_Fireplace_IICO.pdf'}
+             for sku in ['DRT35STDEN','DRT35PFDEN']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'ERT3027_Spark27_Electric_FP_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'ERT3027_Spark27_Electric_FP_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/ERT3027_Spark27_Electric_FP_IICO.pdf'}
+             for sku in ['MPE-27-2','ERT3027']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'MPE_54-60_Linear_Electric_FP_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'MPE_54-60_Linear_Electric_FP_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/MPE_54-60_Linear_Electric_FP_IICO.pdf'}
+             for sku in ['Arcturus54', 'Arcturus60', 'Artesia54', 'Artesia60',
+                         'ERC4054', 'ERC4060', 'MPE-54L', 'MPE-60L']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'VCT-VRT4000_ZMN-P_VF_Radiant_FP_SIT-TSTAT_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'VCT-VRT4000_ZMN-P_VF_Radiant_FP_SIT-TSTAT_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/VCT-VRT4000_ZMN-P_VF_Radiant_FP_SIT-TSTAT_IICO.pdf'}
+             for sku in ['VRT4032ZMN', 'VRT4032ZMP', 'VCT4032ZMN', 'VCT4032ZMP',
+                         'VRT4036ZMN', 'VRT4036ZMP', 'VCT4036ZMN', 'VCT4036ZMP',
+                         'LBG18BM', 'LBG24BM',
+                         ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'VCT4000_32-36_ZEN-ZEP_VF_Fireplace_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'VCT4000_32-36_ZEN-ZEP_VF_Fireplace_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/VCT4000_32-36_ZEN-ZEP_VF_Fireplace_IICO.pdf'}
+             for sku in ['VCT4032ZEN','VCT4032ZEP','VCT4036ZEN','VCT4036ZEP','LBG18BM']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / 'VRT6036, 42, 60.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': 'VRT6036, 42, 60.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/VRT6036, 42, 60.pdf'}
+             for sku in ['VRT6036RS', 'VRT6036IS', 'VRT6036RH', 'VRT6036IH',
+                         'VRT6042RS', 'VRT6042IS', 'VRT6042RH', 'VRT6042IH',
+                         'VRT6050RS', 'VRT6050IS', 'VRT6050RH', 'VRT6050IH',
+                         ]
+            ]
         ),
        ]
    )
