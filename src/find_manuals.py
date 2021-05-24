@@ -129,10 +129,11 @@ def extract_installation_manual(file):
 def find_installation_manual(item: Dict[str, str],
                              directory: List[Dict[str, str]]) -> None:
     manual_path = find_match(item, directory)
-    if manual_path:
-        copy_manual(item=item,
-                    manual_path=manual_path,
-                    out_dir=OUTPUT_MANUAL_FOLDER)
+    if manual_path == 'ignore':
+        # Write ignored item to log
+        item.update({'comment': 'Ignored.'})
+        write_items_to_csv(file=NOT_FOUND_MANUALS_RESULT_FILE, lines=[item])
+    elif manual_path:
         # Write the match image file to log
         item.update({'matched_manual': Path(manual_path).relative_to(INPUT_MANUAL_FOLDER)})
         write_items_to_csv(file=FOUND_MANUALS_RESULT_FILE, lines=[item])
@@ -142,8 +143,17 @@ def find_installation_manual(item: Dict[str, str],
         write_items_to_csv(file=NOT_FOUND_MANUALS_RESULT_FILE, lines=[item])
 
 
-def find_match(item: Dict[str, str], directory: List[Dict[str, str]]
+def find_match(item: Dict[str, str],
+               directory: List[Dict[str, str]]
                ) -> Optional[Union[str, PurePath]]:
+    sku_to_ignore = ['SDLOGS-ODCOUG', 'HDLOGS-ODCOUG',
+                     'LOGS-DRTWOOD-48', 'LOGS-DRTWOOD-60', 'LOGS-DRTWOOD-72',
+                     'DRTWOOD-JADE',
+                     ]
+    if (item.get('manufacturerSKU') in sku_to_ignore
+        or item.get('c__productCategory', '').lower() == 'Media Kits'.lower()):
+        return 'ignore'
+
     brand = item['brand']
     if not brand or not directory.get(brand):
         # Write not found item to log
@@ -153,7 +163,7 @@ def find_match(item: Dict[str, str], directory: List[Dict[str, str]]
 
     matched_manuals = find_fuzzy(item=item,
                                  brand_directory=directory[brand])
-    if len(matched_manuals) > 1:
+    if matched_manuals and len(matched_manuals) > 1:
         matched_manuals = sorted(matched_manuals, key=itemgetter('manual_type'))
     if matched_manuals:
         return INPUT_MANUAL_FOLDER / matched_manuals[0]['pdf_location']
