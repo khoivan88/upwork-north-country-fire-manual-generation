@@ -200,6 +200,9 @@ def find_fuzzy(item, brand_directory):
         options = process.extract(item['c__series'], series_choices, limit=5, scorer=fuzz.token_sort_ratio)
 
     top_score = options[0][1] if options else 0
+    # breakpoint()
+    if top_score < 40:
+        return None
     top_score_results = [option for option in options if option[1] >= top_score]
     return [brand_directory[index] for _, _, index in top_score_results]
 
