@@ -1,24 +1,24 @@
 # __Author__: Khoi Van 2021
 
 import argparse
-
-import sys
+import csv
 import logging
 import re
-import csv
-from pathlib import Path, PurePath
-from typing import Tuple, List, Dict, Union
-from itertools import chain, combinations
+import sys
 from functools import partial
+from itertools import chain, combinations
 from multiprocessing import Pool
-from pdfminer.high_level import extract_text, extract_pages
-from pdfminer.layout import LTTextContainer, LTTextBoxHorizontal, LAParams
+from pathlib import Path, PurePath
+from typing import Dict, List, Tuple, Union
+
 import pandas as pd
 from Crypto.Cipher import AES
-
+from pdfminer.high_level import extract_pages, extract_text
+from pdfminer.layout import LAParams, LTTextBoxHorizontal, LTTextContainer
 from rich.console import Console
 from rich.logging import RichHandler
-from rich.progress import BarColumn, Progress, SpinnerColumn, TimeElapsedColumn, track
+from rich.progress import (BarColumn, Progress, SpinnerColumn,
+                           TimeElapsedColumn, track)
 
 console = Console()
 sys.setrecursionlimit(20000)
@@ -47,7 +47,7 @@ def init_argparse() -> argparse.ArgumentParser:
     """Creating CLI helper"""
     parser = argparse.ArgumentParser(
         usage="python %(prog)s [OPTIONS]",
-        description="Validate North Country Fire data for Napoleon dataset."
+        description="Create directory for items and matching manuals for North Country Fire."
     )
     parser.add_argument('-d', '--debug',
                         help='Print more debug info.',
