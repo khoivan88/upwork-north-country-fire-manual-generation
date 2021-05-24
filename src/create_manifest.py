@@ -41,6 +41,7 @@ RESULT_FILE = DATA_FOLDER / 'manifest.csv'
 MODERNFLAMES_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_modernflames.csv'
 NAPOLEON_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_napoleon.csv'
 TRUENORTH_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_truenorth.csv'
+TIMBERWOLF_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_timberwolf.csv'
 
 
 def init_argparse() -> argparse.ArgumentParser:
@@ -710,11 +711,11 @@ def extract_sku_from_superior_manuals(brand: str,
     return result
 
 
-def append_modernflames_manifest(file: Union[str, PurePath],
-                                 modernflamess_manifest: Union[str, PurePath]
-                                 ) -> None:
+def append_manifests(file: Union[str, PurePath],
+                     new_files: List[Union[str, PurePath]]
+                     ) -> None:
     #combine all files in the list
-    combined_csv = pd.concat([pd.read_csv(f) for f in [file, modernflamess_manifest] ])
+    combined_csv = pd.concat([pd.read_csv(f) for f in [file, *new_files]])
     #export to csv
     combined_csv.to_csv(file, index=False)
 
@@ -729,30 +730,28 @@ if __name__ == '__main__':
     sequential = parser.parse_args().sequential
     parsing_mode = 'sequential' if sequential else 'parallel'
 
-    brands_to_ignore = ['Modern Flames',    # Ignore 'Modern Flames' manual since some files has encoding issue
-                        'Napoleon',
-                        'True North'
+    brands_to_ignore = [('Modern Flames', MODERNFLAMES_MANUAL_MANIFEST),    # Ignore 'Modern Flames' manual since some files has encoding issue
+                        ('Napoleon', NAPOLEON_MANUAL_MANIFEST),
+                        ('True North', TRUENORTH_MANUAL_MANIFEST),
+                        ('Timberwolf', TIMBERWOLF_MANUAL_MANIFEST),
                         ]
 
     files = {f.resolve()
              for f in Path(INPUT_FOLDER).glob('**/*.pdf')
-             if not any(brand in str(f) for brand in brands_to_ignore)
+             if all(brand not in str(f) for brand, _ in brands_to_ignore)
              }
+
 
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/VRT6036, 42, 60.pdf')}
 
     # breakpoint()
+    # Create the manifest
     create_manifest_from_manuals(files=files,
                                  result_file=RESULT_FILE,
                                  parsing_mode=parsing_mode,
                                  debug=debug)
 
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=MODERNFLAMES_MANUAL_MANIFEST)
-
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=NAPOLEON_MANUAL_MANIFEST)
-
-    append_modernflames_manifest(file=RESULT_FILE,
-                                 modernflamess_manifest=TRUENORTH_MANUAL_MANIFEST)
+    # Append the manifest above with manual manifests
+    append_manifests(file=RESULT_FILE,
+                     new_files=[manifest for _, manifest in brands_to_ignore])
