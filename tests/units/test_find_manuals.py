@@ -68,6 +68,16 @@ def directory() -> List[Dict[str, str]]:
         ({'manufacturerSKU': '3DFA-25', 'brand': 'DuraVent',
           'c__series': 'DuraFlex Aluminum'},
          'DuraVent/duraVentDuraFlexAluminum.pdf'),
+        ({'manufacturerSKU': 'EPI22-1', 'brand': 'Timberwolf'},                            # Timberwolf
+         'Timberwolf/W415-2799_EPI22-1 (CSA)_CeCf_05.07.21.pdf'),
+        ({'manufacturerSKU': '2200-1', 'brand': 'Timberwolf'},
+         'Timberwolf/2200-1-Installation-Manual-MAR20.pdf'),
+        ({'manufacturerSKU': '2100-1', 'brand': 'Timberwolf'},
+         'Timberwolf/2100-1-Manual.pdf'),
+        ({'manufacturerSKU': 'TPI35', 'brand': 'Timberwolf'},
+         'Timberwolf/W415-0865_TPSI35.pdf'),
+        ({'manufacturerSKU': 'TPS35', 'brand': 'Timberwolf'},
+         'Timberwolf/W415-0865_TPSI35.pdf'),
         ({'manufacturerSKU': 'TN20.INSB', 'brand': 'True North',                            # True North
           'c__series': 'TN20 Insert'},
          'True North/100000127-TN20B-INS-110618-28.pdf'),
