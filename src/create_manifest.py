@@ -224,6 +224,10 @@ def extract_sku_from_empire_manuals(brand: str,
                                     debug: bool = False
                                     ) -> List[Dict[str, str]]:
     result = []
+
+    # Get type of manuals: 'installation' or 'owner'
+    manual_type = []
+
     laparams = LAParams(
         line_margin=0.59,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
     )
@@ -235,11 +239,19 @@ def extract_sku_from_empire_manuals(brand: str,
     for page_layout in pages:
         for element in page_layout:
             # # !DEBUG
-            # if (isinstance(element, LTTextBoxHorizontal)
-            #     # and check_element_after_this
-            #     ):
-            #     console.log(element)
-            #     console.log(element.get_text())
+            if debug and isinstance(element, LTTextBoxHorizontal):
+                console.log(element)
+                console.log(element.get_text())
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and any(word in element.get_text().lower()
+                        for word in ['instructions', 'manual'])
+                ):
+                type = re.search(r'install\w+|owner',
+                                 element.get_text().lower(),
+                                 flags=re.IGNORECASE)
+                if type:
+                    manual_type.append(type[0])
 
             if isinstance(element, LTTextBoxHorizontal):
                 re_model = re.compile(r'''
@@ -291,7 +303,7 @@ def extract_sku_from_empire_manuals(brand: str,
                                 'series': '',
                                 'brand': brand,
                                 'pdf_name': file.name,
-                                'manual_type': '',
+                                'manual_type': manual_type[0] if manual_type else '',
                                 'pdf_location': str(file.relative_to(INPUT_FOLDER))}
                               for sku in expanded_models])
                 # console.log(f'{filename=}')
@@ -683,11 +695,11 @@ def extract_sku_from_superior_manuals(brand: str,
                     models = re.split(r'model\(?s?\)?:?', filtered_text, flags=re.IGNORECASE)
                 models = re.split(r',\s|\n|\s+', ''.join(models).strip())
                 new_result = [{'sku': sku.split(' ')[0],
-                                'series': '',
-                                'brand': brand,
-                                'pdf_name': file.name,
-                                'manual_type': manual_type[0] if manual_type else '',
-                                'pdf_location': str(file.relative_to(INPUT_FOLDER))}
+                               'series': '',
+                               'brand': brand,
+                               'pdf_name': file.name,
+                               'manual_type': manual_type[0] if manual_type else '',
+                               'pdf_location': str(file.relative_to(INPUT_FOLDER))}
                               for sku in models
                               if (sku
                                   and sku not in known_not_sku_list
