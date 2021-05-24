@@ -628,7 +628,7 @@ def extract_sku_from_superior_manuals(brand: str,
     exceptions = ['capella 33', 'capella 36']
 
     # List of text that looks like SKU but not
-    known_not_sku_list = ['F19-008']
+    known_not_sku_list = ['F19-008', 'UL127']
 
     # Get type of manuals: 'installation' or 'owner'
     manual_type = []
@@ -689,7 +689,7 @@ def extract_sku_from_superior_manuals(brand: str,
                                 'pdf_location': str(file.relative_to(INPUT_FOLDER))}
                               for sku in models
                               if (sku
-                                #   and sku not in known_not_sku_list
+                                  and sku not in known_not_sku_list
                                   and is_likely_sku(text=sku, exceptions=exceptions))
                               ]
 
