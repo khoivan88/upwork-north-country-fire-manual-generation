@@ -27,17 +27,66 @@ def directory() -> List[Dict[str, str]]:
 
 @pytest.mark.parametrize(
     "item, expect", [
-        ({'manufacturerSKU': 'GX70NTE-1', 'brand': 'Napoleon'},
-         'Napoleon/Ascent-X-70-Series-Manual.pdf'),
-        ({'manufacturerSKU': '4PVP-24SS', 'brand': 'DuraVent',
+        ({'manufacturerSKU': 'VF2927L', 'brand': 'Dimplex'},                                # Dimplex
+         'Dimplex/7213460100R05_EN.pdf'),
+        ({'manufacturerSKU': 'RBF30WC', 'brand': 'Dimplex'},
+         'Dimplex/Revillusion_Dimplex.pdf'),
+        ({'manufacturerSKU': 'PF3033HG', 'brand': 'Dimplex'},
+         'Dimplex/PF3033_Dimplex.pdf'),
+        ({'manufacturerSKU': 'XLF50', 'brand': 'Dimplex'},
+         'Dimplex/XLF100_Dimplex.pdf'),
+        ({'manufacturerSKU': 'XLF60', 'brand': 'Dimplex'},
+         'Dimplex/7215520100R00.pdf'),
+        ({'manufacturerSKU': 'CDFI1000-PRO', 'brand': 'Dimplex'},
+         'Dimplex/CDFI_Owners_Manual_7214300200R03.pdf'),
+        ({'manufacturerSKU': 'GBF1500-PRO', 'brand': 'Dimplex'},
+         'Dimplex/CDFI_Owners_Manual_7214300200R03.pdf'),
+        ({'manufacturerSKU': 'GBF1000-PRO', 'brand': 'Dimplex'},
+         'Dimplex/CDFI_Owners_Manual_7214300200R03.pdf'),
+        ({'manufacturerSKU': 'VF2927L', 'brand': 'Dimplex'},
+         'Dimplex/7213460100R05_EN.pdf'),
+        ({'manufacturerSKU': 'BLF3451', 'brand': 'Dimplex'},
+         'Dimplex/7213990100R02_EN.pdf'),
+        ({'manufacturerSKU': 'BLF5051', 'brand': 'Dimplex'},
+         'Dimplex/BLF5051.pdf'),
+        ({'manufacturerSKU': 'BLF7451', 'brand': 'Dimplex'},
+         'Dimplex/7214000100R01_EN.pdf'),
+        ({'manufacturerSKU': 'BLF50', 'brand': 'Dimplex'},
+         'Dimplex/7210380100R05_EN.pdf'),
+        ({'manufacturerSKU': '4PVP-24SS', 'brand': 'DuraVent',                              # DuraVent
           'c__series': 'PelletVent Pro'},
          'DuraVent/duraVentPelletVentPro.pdf'),
-        ({'manufacturerSKU': 'ODLVF60ZEN', 'brand': 'Superior'},
-         'Superior/Superior_VRE4600_Installation_manual_updated'),
+        ({'manufacturerSKU': '46DVA-17TA', 'brand': 'DuraVent',
+          'c__series': 'DirectVent Pro'},
+         'DuraVent/duraVentDirectPro.pdf'),
+        ({'manufacturerSKU': '46DVA-H2-SNK36', 'brand': 'DuraVent',
+          'c__series': 'DirectVent Pro'},
+         'DuraVent/duraVentDirectPro.pdf'),
+        ({'manufacturerSKU': '46DVA-H2', 'brand': 'DuraVent',
+          'c__series': 'DirectVent Pro'},
+         'DuraVent/duraVentDirectPro.pdf'),
+        ({'manufacturerSKU': '3DFA-25', 'brand': 'DuraVent',
+          'c__series': 'DuraFlex Aluminum'},
+         'DuraVent/duraVentDuraFlexAluminum.pdf'),
+        ({'manufacturerSKU': 'TN20.INSB', 'brand': 'True North',                            # True North
+          'c__series': 'TN20 Insert'},
+         'True North/100000127-TN20B-INS-110618-28.pdf'),
+        ({'manufacturerSKU': 'TN24.BODYA', 'brand': 'True North',
+          'c__series': 'TN24'},
+         'True North/100000458_True-North24-Installation-and-User-manual-090719-40.pdf'),
+        ({'manufacturerSKU': 'TN20.LEGB', 'brand': 'True North',
+          'c__series': 'TN20 Stove'},
+         'True North/100000064_TN20-B_110618-28.pdf'),
+        ({'manufacturerSKU': 'TN10.LEGA', 'brand': 'True North',
+          'c__series': 'TN10'},
+         'True North/TN10_Wood_Stove_Manual.pdf'),
     ]
 )
 def test_find_match(item: Dict[str, str], directory: List[Dict[str, str]],
                     expect: str):
-    answer = find_match(item, directory).relative_to(INPUT_FOLDER)
-    assert Path(answer) == Path(expect)
+    answer = find_match(item, directory)
+    if expect is None or expect == 'ignore':
+        assert answer == expect
+    else:
+        assert Path(answer.relative_to(INPUT_FOLDER)) == Path(expect)
 
