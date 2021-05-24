@@ -31,7 +31,9 @@ def directory() -> List[Dict[str, str]]:
          'Napoleon/Ascent-X-70-Series-Manual.pdf'),
         ({'manufacturerSKU': '4PVP-24SS', 'brand': 'DuraVent',
           'c__series': 'PelletVent Pro'},
-         'DuraVent/duraVentPelletVentPro.pdf')
+         'DuraVent/duraVentPelletVentPro.pdf'),
+        ({'manufacturerSKU': 'ODLVF60ZEN', 'brand': 'Superior'},
+         'Superior/Superior_VRE4600_Installation_manual_updated'),
     ]
 )
 def test_find_match(item: Dict[str, str], directory: List[Dict[str, str]],
