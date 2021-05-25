@@ -257,11 +257,13 @@ def test_extract_sku_from_empire_manuals(brand, file, expect):
         ),
         (
             'Majestic',
-            INPUT_FOLDER / 'Majestic' / 'OXDV30SP - OXFORD DV STOVE.pdf',
-            [{'sku': 'OXDV30SP', 'series': '', 'brand': 'Majestic',
-              'pdf_name': 'OXDV30SP - OXFORD DV STOVE.pdf',
-              'manual_type': '',
-              'pdf_location': 'Majestic/OXDV30SP - OXFORD DV STOVE.pdf'}]
+            INPUT_FOLDER / 'Majestic' / 'Oxford OXDV-IPI.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Majestic',
+              'pdf_name': 'Oxford OXDV-IPI.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Majestic/Oxford OXDV-IPI.pdf'}
+             for sku in ['OXDV30SP', 'OXDV30-IPI']
+             ]
         ),
         (
             'Majestic',
@@ -356,6 +358,48 @@ def test_extract_sku_from_empire_manuals(brand, file, expect):
               'pdf_name': 'VDY18,24,30 - DUZY.pdf',
               'manual_type': '',
               'pdf_location': 'Majestic/VDY18,24,30 - DUZY.pdf'},
+             ]
+        ),
+        (
+            'Majestic',
+            INPUT_FOLDER / 'Majestic' / 'COURTYARD_OD_36-42_INSTALL_4608-901.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Majestic',
+              'pdf_name': 'COURTYARD_OD_36-42_INSTALL_4608-901.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Majestic/COURTYARD_OD_36-42_INSTALL_4608-901.pdf'}
+             for sku in ['ODCOUG-36T', 'ODCOUG-42T', 'ODCOUG-36PH', 'ODCOUG-42PH',
+                         'ODCOUG-36PT', 'ODCOUG-42PT', 'ODCOUG-36', 'ODCOUG-42',
+                         ]
+             ]
+        ),
+        (
+            'Majestic',
+            INPUT_FOLDER / 'Majestic' / 'Twilight_II_installation_manual.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Majestic',
+              'pdf_name': 'Twilight_II_installation_manual.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Majestic/Twilight_II_installation_manual.pdf'}
+             for sku in ['Twilight-II-C']
+             ]
+        ),
+        (
+            'Majestic',
+            INPUT_FOLDER / 'Majestic' / 'TWILIGHT-II-MDC_INSTALLATION_MANUAL.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Majestic',
+              'pdf_name': 'TWILIGHT-II-MDC_INSTALLATION_MANUAL.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Majestic/TWILIGHT-II-MDC_INSTALLATION_MANUAL.pdf'}
+             for sku in ['TWILIGHT-II-MDC']
+             ]
+        ),
+        (
+            'Majestic',
+            INPUT_FOLDER / 'Majestic' / 'ODPLAZA-L24S Linear Installation Manual 4079-311.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Majestic',
+              'pdf_name': 'ODPLAZA-L24S Linear Installation Manual 4079-311.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Majestic/ODPLAZA-L24S Linear Installation Manual 4079-311.pdf'}
+             for sku in ['ODPLAZA-L24S-B', 'ODPLAZA-L24E']
              ]
         ),
        ]

@@ -42,6 +42,7 @@ MODERNFLAMES_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_modernflames.csv'
 NAPOLEON_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_napoleon.csv'
 TRUENORTH_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_truenorth.csv'
 TIMBERWOLF_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_timberwolf.csv'
+MISCELLANOUS_MANUAL_MANIFEST = DATA_FOLDER / 'manifest_misc.csv'
 
 
 def init_argparse() -> argparse.ArgumentParser:
@@ -407,7 +408,8 @@ def extract_sku_from_majestic_manuals(brand: str,
                                       ) -> List[Dict[str, str]]:
     result = []
     # Exception:
-    exceptions = ['warmmajic-ii']
+    exceptions = ['warmmajic-ii', 'twilight-ii-c', 'twilight-ii-mdc',
+                  'odplaza-l24s-b', 'odplaza-l24e']
 
     # Get type of manuals: 'installation' or 'owner'
     manual_type = []
@@ -454,7 +456,7 @@ def extract_sku_from_majestic_manuals(brand: str,
                     _, *models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
                 else:
                     models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
-                models = re.split(r',\s|\n|\s+', ''.join(models).strip())
+                models = re.split(r',\s|\n|\s+|/(?=[A-Z])', ''.join(models).strip())
                 result.extend([{'sku': sku.split(' ')[0],
                                 'series': '',
                                 'brand': brand,
@@ -466,10 +468,13 @@ def extract_sku_from_majestic_manuals(brand: str,
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
 
-                # Signal the program to check the next pdf text element
-                # because sometimes, the series are not recognized to be in
-                # the same box as the one containing 'model'
-                check_next_element = 'model' in element.get_text().lower()
+            # Signal the program to check the next pdf text element
+            # because sometimes, the series are not recognized to be in
+            # the same box as the one containing 'model'
+            if isinstance(element, LTTextBoxHorizontal):
+                check_next_element = re.search(r'model|do\snot\sdiscard',
+                                               element.get_text(), flags=re.IGNORECASE)
+
     # console.log(f'{result=}')
     return result
 
@@ -754,8 +759,8 @@ if __name__ == '__main__':
              }
 
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/VRT6036, 42, 60.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/ODPLAZA-L24S Linear Installation Manual 4079-311.pdf')}
 
     # breakpoint()
     # Create the manifest
@@ -765,5 +770,8 @@ if __name__ == '__main__':
                                  debug=debug)
 
     # Append the manifest above with manual manifests
+    manual_manifests = [manifest for _, manifest in brands_to_ignore]
     append_manifests(file=RESULT_FILE,
-                     new_files=[manifest for _, manifest in brands_to_ignore])
+                     new_files=[*manual_manifests,
+                                MISCELLANOUS_MANUAL_MANIFEST]
+                     )
