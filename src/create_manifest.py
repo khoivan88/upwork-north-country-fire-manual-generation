@@ -125,12 +125,19 @@ def extract_sku(file, result_file, debug: bool = False):
         brand = file.parent.name
         result = extract_sku_from_brand(brand=brand, file=file, debug=debug)
         # console.log(f'{result=}')
-        write_items_to_csv(file=result_file, lines=result)
+        if result:
+            write_items_to_csv(file=result_file, lines=result)
+        else:
+            raise RuntimeWarning('Not able to extract any models')
+    except RuntimeWarning as warning:
+        print()
+        log.warning(warning.args)
+        log.warning(f'{file=}')
     except Exception as error:
         print()
         log.error(f'{file}')
-        # log.exception(error)
-        log.error(error)
+        log.exception(error)
+        # log.error(error)
 
 
 def write_items_to_csv(file, lines):
