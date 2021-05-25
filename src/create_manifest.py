@@ -167,6 +167,7 @@ def extract_sku_from_brand(brand: str,
         'Majestic': extract_sku_from_majestic_manuals,
         'Modern Flames': extract_sku_from_modernflames_manuals,
         'Monessen': extract_sku_from_monessen_manuals,
+        'SimpliFire': extract_sku_from_simplifire_manuals,
         'Superior': extract_sku_from_superior_manuals,
     }
     return brand_dict[brand](brand=brand, file=file, debug=debug)
@@ -644,6 +645,80 @@ def extract_sku_from_monessen_manuals(brand: str,
     return result
 
 
+def extract_sku_from_simplifire_manuals(brand: str,
+                                      file: PurePath,
+                                      debug: bool = False
+                                      ) -> List[Dict[str, str]]:
+    result = []
+
+    # Exception:
+    exceptions = []
+
+    # Get type of manuals: 'installation' or 'owner'
+    manual_type = []
+
+    check_next_element = False
+
+    laparams = LAParams(
+        line_margin=0.7,   # Some files such as 'Dimplex/XLF100_Dimplex.pdf' has models number far apart
+        # boxes_flow=1,
+    )
+    pages = extract_pages(file,
+                          page_numbers=[0],
+                          maxpages=1,
+                          laparams=laparams
+                          )
+    for page_layout in pages:
+        for element in page_layout:
+            # # !DEBUG
+            if debug and isinstance(element, LTTextBoxHorizontal):
+                console.log(element)
+                console.log(element.get_text())
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and 'manual' in element.get_text().lower()):
+                type = re.search(r'install\w+|owner',
+                                        element.get_text().lower(),
+                                        flags=re.IGNORECASE)
+                if type:
+                    manual_type.append(type[0])
+
+            if (isinstance(element, LTTextBoxHorizontal)
+                and ('model' in element.get_text().lower()
+                     or check_next_element)
+                ):
+                # breakpoint()
+                text = element.get_text()
+                # _, _, models = text.partition('\n')
+                # if ':' in text:
+                #     _, _, models = text.partition(':')
+
+                # Sometimes 'Model' is found in the middle of an element, in that case, split there
+                # Sometimes, there are two 'models:'
+                if 'model' in element.get_text().lower():
+                    _, *models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                else:
+                    models = re.split(r'model\(?s?\)?:?', text, flags=re.IGNORECASE)
+                models = re.split(r',\s|\n|\s+|&', ''.join(models).strip())
+                result.extend([{'sku': sku.split(' ')[0],
+                                'series': '',
+                                'brand': brand,
+                                'pdf_name': file.name,
+                                'manual_type': manual_type[0] if manual_type else '',
+                                'pdf_location': str(file.relative_to(INPUT_FOLDER))}
+                              for sku in models
+                              if sku and is_likely_sku(text=sku, exceptions=exceptions)])
+                # console.log(f'{filename=}')
+                # console.log(f'{models=}')
+
+                # Signal the program to check the next pdf text element
+                # because sometimes, the series are not recognized to be in
+                # the same box as the one containing 'model'
+                check_next_element = 'model' in element.get_text().lower()
+    # console.log(f'{result=}')
+    return result
+
+
 def extract_sku_from_superior_manuals(brand: str,
                                       file: PurePath,
                                       debug: bool = False
@@ -767,7 +842,7 @@ if __name__ == '__main__':
              }
 
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Modern Flames/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/SimpliFire/*.pdf')}
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/ODPLAZA-L24S Linear Installation Manual 4079-311.pdf')}
 
     # breakpoint()

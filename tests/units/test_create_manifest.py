@@ -16,6 +16,7 @@ from src.create_manifest import (get_all_combinations,
                                  extract_sku_from_majestic_manuals,
                                  extract_sku_from_modernflames_manuals,
                                  extract_sku_from_monessen_manuals,
+                                 extract_sku_from_simplifire_manuals,
                                  extract_sku_from_superior_manuals)
 
 
@@ -588,6 +589,57 @@ def test_extract_sku_from_modernflames_manuals(brand, file, expect):
    )
 def test_extract_sku_from_monessen_manuals(brand, file, expect):
     answer = extract_sku_from_monessen_manuals(brand, file)
+    sorted_answer = sorted(answer, key=itemgetter('sku'))
+    sorted_expect = sorted(expect, key=itemgetter('sku'))
+    assert sorted_answer == sorted_expect
+
+
+@pytest.mark.parametrize(
+    "brand, file, expect", [
+        (
+            'SimpliFire',
+            INPUT_FOLDER / 'SimpliFire' / '2040_911.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'SimpliFire',
+              'pdf_name': '2040_911.pdf',
+              'manual_type': '',
+              'pdf_location': 'SimpliFire/2040_911.pdf'}
+             for sku in ['SF-WMS38-BK']
+             ]
+        ),
+        (
+            'SimpliFire',
+            INPUT_FOLDER / 'SimpliFire' / '2040_981_ALLUSION_OWNER_INSTALL MANUAL.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'SimpliFire',
+              'pdf_name': '2040_981_ALLUSION_OWNER_INSTALL MANUAL.pdf',
+              'manual_type': 'owner',
+              'pdf_location': 'SimpliFire/2040_981_ALLUSION_OWNER_INSTALL MANUAL.pdf'}
+             for sku in ['SF-ALL40-BK', 'SF-ALL48-BK', 'SF-ALL60-BK', 'SF-ALL84-BK',]
+             ]
+        ),
+        (
+            'SimpliFire',
+            INPUT_FOLDER / 'SimpliFire' / '2042-922_SF-SI4027_SF-SI4432_Installation.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'SimpliFire',
+              'pdf_name': '2042-922_SF-SI4027_SF-SI4432_Installation.pdf',
+              'manual_type': '',
+              'pdf_location': 'SimpliFire/2042-922_SF-SI4027_SF-SI4432_Installation.pdf'}
+             for sku in ['SF-INS30-BK',]
+             ]
+        ),
+        (
+            'SimpliFire',
+            INPUT_FOLDER / 'SimpliFire' / '2041_980_ SCION_OWNER_INSTALL_MANUAL.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'SimpliFire',
+              'pdf_name': '2041_980_ SCION_OWNER_INSTALL_MANUAL.pdf',
+              'manual_type': 'owner',
+              'pdf_location': 'SimpliFire/2041_980_ SCION_OWNER_INSTALL_MANUAL.pdf'}
+             for sku in ['SF-SC43-BK', 'SF-SC55-BK', 'SF-SC78-BK',]
+             ]
+        ),
+       ]
+   )
+def test_extract_sku_from_simplifire_manuals(brand, file, expect):
+    answer = extract_sku_from_simplifire_manuals(brand, file)
     sorted_answer = sorted(answer, key=itemgetter('sku'))
     sorted_expect = sorted(expect, key=itemgetter('sku'))
     assert sorted_answer == sorted_expect
