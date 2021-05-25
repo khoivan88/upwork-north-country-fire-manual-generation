@@ -747,11 +747,12 @@ if __name__ == '__main__':
     sequential = parser.parse_args().sequential
     parsing_mode = 'sequential' if sequential else 'parallel'
 
-    brands_to_ignore = [('Modern Flames', MODERNFLAMES_MANUAL_MANIFEST),    # Ignore 'Modern Flames' manual since some files has encoding issue
-                        ('Napoleon', NAPOLEON_MANUAL_MANIFEST),
-                        ('True North', TRUENORTH_MANUAL_MANIFEST),
-                        ('Timberwolf', TIMBERWOLF_MANUAL_MANIFEST),
-                        ]
+    brands_to_ignore = [
+        # ('Modern Flames', MODERNFLAMES_MANUAL_MANIFEST),    # Ignore 'Modern Flames' manual since some files has encoding issue
+        ('Napoleon', NAPOLEON_MANUAL_MANIFEST),
+        ('True North', TRUENORTH_MANUAL_MANIFEST),
+        ('Timberwolf', TIMBERWOLF_MANUAL_MANIFEST),
+    ]
 
     files = {f.resolve()
              for f in Path(INPUT_FOLDER).glob('**/*.pdf')
@@ -759,7 +760,7 @@ if __name__ == '__main__':
              }
 
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Modern Flames/*.pdf')}
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/ODPLAZA-L24S Linear Installation Manual 4079-311.pdf')}
 
     # breakpoint()
