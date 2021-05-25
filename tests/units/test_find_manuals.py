@@ -195,6 +195,25 @@ def directory() -> List[Dict[str, str]]:
         ({'manufacturerSKU': 'ODVILLA-36T', 'brand': 'Majestic'},
          'Majestic/ODVILLA-Villawood-series.pdf'),
 
+        ({'manufacturerSKU': 'AL144CLX2-G', 'brand': 'Modern Flames'},                      # Modern Flames
+         'Modern Flames/Manual-AL-CLX-2.pdf'),
+        ({'manufacturerSKU': 'FF43/BILV', 'brand': 'Modern Flames'},
+         'Modern Flames/MODERN_FLAMES_BUILDER_INSTALLATION_MANUAL.pdf'),
+        ({'manufacturerSKU': 'SF40/BILV', 'brand': 'Modern Flames'},
+         'Modern Flames/MODERN_FLAMES_BUILDER_INSTALLATION_MANUAL.pdf'),
+        ({'manufacturerSKU': 'HF42CBI', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-Homefire_REV3.1_single.pdf'),
+        ({'manufacturerSKU': 'LFV2-120/15-SH', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-Landscape-GEN2-Rev2_singles.pdf'),
+        ({'manufacturerSKU': 'LPM-6616', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-Landscape-Pro-Multiview.pdf'),
+        ({'manufacturerSKU': 'SC36-B', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-Spectrum-REV2-single.pdf'),
+        ({'manufacturerSKU': 'SCO-26EL', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-Sunset-Charred-Oak-singles-rev-3.pdf'),
+        ({'manufacturerSKU': 'ZCR2-29C', 'brand': 'Modern Flames'},
+         'Modern Flames/Manual-ZCR-2_singles.pdf'),
+
         ({'manufacturerSKU': 'GX70NTE-1', 'brand': 'Napoleon'},                             # Napoleon
          'Napoleon/Ascent-X-70-Series-Manual.pdf'),
         ({'manufacturerSKU': 'B30NTRE-1', 'brand': 'Napoleon'},
