@@ -191,6 +191,16 @@ def test_get_all_combinations(match: Tuple[str], expect: Set[str]):
                          ]
              ]
         ),
+        (
+            'Empire',
+            INPUT_FOLDER / 'Empire' / 'ONRI-2430-2.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Empire',
+              'pdf_name': 'ONRI-2430-2.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Empire/ONRI-2430-2.pdf'}
+             for sku in [ 'ONR-24-2', 'ONR-30-2', 'ONI-24-2', 'ONI-30-2',]
+             ]
+        ),
        ]
    )
 def test_extract_sku_from_empire_manuals(brand, file, expect):

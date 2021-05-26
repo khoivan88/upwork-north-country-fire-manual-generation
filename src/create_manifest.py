@@ -241,6 +241,11 @@ def extract_sku_from_empire_manuals(brand: str,
                                     ) -> List[Dict[str, str]]:
     result = []
 
+    # Exception:
+    exceptions = ['mh45080']
+
+    check_next_element = False
+
     # Get type of manuals: 'installation' or 'owner'
     manual_type = []
 
@@ -290,11 +295,11 @@ def extract_sku_from_empire_manuals(brand: str,
                 containing_models = re_model.findall(filtered_text)
 
                 if not containing_models:
-                    containing_models = re.findall(r'(?!MH30033|DFEV)([a-zA-Z]{2,}\(?\d+.*)',
+                    containing_models = re.findall(r'(?!MH30033|DFEV)([a-zA-Z]{2,}\(?\-?\d+.*)',
                                                    element.get_text(),
                                                    flags=re.MULTILINE | re.IGNORECASE | re.VERBOSE | re.DOTALL)
 
-                if not containing_models:
+                if not containing_models and not check_next_element:
                     # if  not check_element_after_this
                     continue
 
@@ -307,13 +312,13 @@ def extract_sku_from_empire_manuals(brand: str,
                 # check_element_after_this = True
 
                 # models = ' '.join([containing_models[0]]).upper()    # sometimes PDF miner extract words into lowercase
-                models = containing_models[0].upper()    # sometimes PDF miner extract words into lowercase
+                # models = containing_models[0].upper()    # sometimes PDF miner extract words into lowercase
+                models = ' '.join(containing_models).upper()    # sometimes PDF miner extract words into lowercase
                 # breakpoint()
                 if ':' in models:
                     _, _, models = models.partition(':')
 
-                # # Sometimes 'Model' is found in the middle of an element, in that case, split there
-                models = re.split(r',\s+|\s+|\n', models.strip())
+                models = re.split(r',\s|\n|\s+|/(?=[A-Z])', ''.join(models).strip())
                 expanded_models = expand_models(models=models)
                 result.extend([{'sku': sku.split(' ')[0],
                                 'series': '',
@@ -321,10 +326,13 @@ def extract_sku_from_empire_manuals(brand: str,
                                 'pdf_name': file.name,
                                 'manual_type': manual_type[0] if manual_type else '',
                                 'pdf_location': str(file.relative_to(INPUT_FOLDER))}
-                              for sku in expanded_models])
+                              for sku in expanded_models
+                              if sku and is_likely_sku(text=sku, exceptions=exceptions)])
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
 
+                check_next_element = re.search(r'model|do\snot\sdiscard',
+                                               element.get_text(), flags=re.IGNORECASE)
     # console.log(f'{result=}')
     return remove_duplicate(result)
 
@@ -422,6 +430,7 @@ def extract_sku_from_majestic_manuals(brand: str,
                                       debug: bool = False
                                       ) -> List[Dict[str, str]]:
     result = []
+
     # Exception:
     exceptions = ['warmmajic-ii', 'twilight-ii-c', 'twilight-ii-mdc',
                   'odplaza-l24s-b', 'odplaza-l24e']
@@ -850,8 +859,8 @@ if __name__ == '__main__':
              }
 
 
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/SimpliFire/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/900917-00_A_SUP_WXS2016_(ES2100)_Wood_Stove_EN_IICO.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Empire/*.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Empire/ONRI-2430-2.pdf')}
 
     # breakpoint()
     # Create the manifest
