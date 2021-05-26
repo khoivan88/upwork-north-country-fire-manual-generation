@@ -534,6 +534,9 @@ def test_find_match(item: Dict[str, str], directory: List[Dict[str, str]],
     answer = find_match(item, directory)
     if expect is None or expect == 'ignore':
         assert answer == expect
+    elif isinstance(expect, set) and len(expect) > 1:
+        assert any(Path(answer.relative_to(INPUT_FOLDER)) == Path(choice)
+                   for choice in expect)
     else:
         assert Path(answer.relative_to(INPUT_FOLDER)) == Path(expect)
 
