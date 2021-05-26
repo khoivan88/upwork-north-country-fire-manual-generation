@@ -164,17 +164,46 @@ def find_match(item: Dict[str, str],
     matched_manuals = find_fuzzy(item=item,
                                  brand_directory=directory[brand])
     if matched_manuals and len(matched_manuals) > 1:
+        # Sort according to 'manual_type', i.e. 'installation' better than 'owner'
         matched_manuals = sorted(matched_manuals, key=itemgetter('manual_type'))
+        # breakpoint()
+        # If the SKU in the matched list are different, rank them and sort from closest to the item SKU in word order
+        matched_manuals = rank_closest_sku(anchor=item,
+                                           list_to_be_ranked=matched_manuals)
     if matched_manuals:
         return INPUT_MANUAL_FOLDER / matched_manuals[0]['pdf_location']
 
 
-# def find_possible_match(item, brand_directory):
-#     results = find_fuzzy(item, brand_directory)
+def rank_closest_sku(anchor: Dict[str, str],
+                     list_to_be_ranked: List[Dict[str, str]]
+                     ) -> List[Dict[str, str]]:
+    """If the SKU in the matched list are different,
+    rank them and sort from closest to the item SKU in word order
 
-#     # Sort by priority:
-#     results = sorted(results, key=itemgetter('manual_type'))
-#     return results[0]
+    e.g, item SKU 'DRT3045TEN', matched_manuals contains 'DRT6345TEN' and 'DRT3045DEN'; 'DRT3045DEN' should be a better match
+
+    Parameters
+    ----------
+    anchor : Dict[str, str]
+        [description]
+    list_to_be_ranked : List[Dict[str, str]]
+        [description]
+
+    Returns
+    -------
+    List[Dict[str, str]]
+        [description]
+    """
+    sku = anchor['manufacturerSKU']
+    for item in list_to_be_ranked:
+        score = 0
+        for i, c in enumerate(item['sku']):
+            if i < len(sku) and c == sku[i]:
+                score += 1
+            else:
+                break
+        item['score'] = score
+    return sorted(list_to_be_ranked, key=itemgetter('score'), reverse=True)
 
 
 def find_fuzzy(item, brand_directory):
