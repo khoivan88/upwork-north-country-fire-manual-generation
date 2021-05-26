@@ -149,6 +149,7 @@ def find_match(item: Dict[str, str],
     sku_to_ignore = ['SDLOGS-ODCOUG', 'HDLOGS-ODCOUG',
                      'LOGS-DRTWOOD-48', 'LOGS-DRTWOOD-60', 'LOGS-DRTWOOD-72',
                      'DRTWOOD-JADE',
+                     'STFSO18',
                      ]
     if (item.get('manufacturerSKU') in sku_to_ignore
         or item.get('c__productCategory', '').lower() == 'Media Kits'.lower()):
