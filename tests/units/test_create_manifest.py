@@ -821,11 +821,11 @@ def test_extract_sku_from_simplifire_manuals(brand, file, expect):
         ),
         (
             'Superior',
-            INPUT_FOLDER / 'Superior' / 'DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf',
+            INPUT_FOLDER / 'Superior' / 'SUPERIOR_DRL3000_INSTALLATION_MANUAL.pdf',
             [{'sku': sku, 'series': '', 'brand': 'Superior',
-              'pdf_name': 'DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf',
+              'pdf_name': 'SUPERIOR_DRL3000_INSTALLATION_MANUAL.pdf',
               'manual_type': 'installation',
-              'pdf_location': 'Superior/DRL3000_Linear_DV_Fireplace_SIT-PF_IICO.pdf'}
+              'pdf_location': 'Superior/SUPERIOR_DRL3000_INSTALLATION_MANUAL.pdf'}
              for sku in ['DRL3042TEN', 'DRL3042TEP', 'DRL3054TEN', 'DRL3054TEP']
             ]
         ),
@@ -931,6 +931,77 @@ def test_extract_sku_from_simplifire_manuals(brand, file, expect):
                          'VRT6042RS', 'VRT6042IS', 'VRT6042RH', 'VRT6042IH',
                          'VRT6050RS', 'VRT6050IS', 'VRT6050RH', 'VRT6050IH',
                          ]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '901007-00_C_SUP_WRT60364250_WB_Masonry_FP_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '901007-00_C_SUP_WRT60364250_WB_Masonry_FP_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901007-00_C_SUP_WRT60364250_WB_Masonry_FP_IICO.pdf'}
+             for sku in ['WRT6036', 'WRT6042', 'WRT6050']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900990-00_E_SUP_VRE3236-42_ZEN-ZEP_WS-WH_OD_VF_FP_AMF-EL_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '900990-00_E_SUP_VRE3236-42_ZEN-ZEP_WS-WH_OD_VF_FP_AMF-EL_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900990-00_E_SUP_VRE3236-42_ZEN-ZEP_WS-WH_OD_VF_FP_AMF-EL_IICO.pdf'}
+             for sku in ['VRE3236ZENWS', 'VRE3236ZENWH', 'VRE3236ZEPWS', 'VRE3236ZEPWH',
+                         'VRE3242ZENWS', 'VRE3242ZENWH', 'VRE3242ZEPWS', 'VRE3242ZEPWH',]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '901010-00_B_SUP_VRE60364250_VF_Masonry_FB_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '901010-00_B_SUP_VRE60364250_VF_Masonry_FB_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/901010-00_B_SUP_VRE60364250_VF_Masonry_FB_IICO.pdf'}
+             for sku in ['VRE6036', 'VRE6042', 'VRE6050']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '127035-01_K_SUP_VRE4543_EN-EP_OD_Linear_Gas_FP_AMF-EL_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '127035-01_K_SUP_VRE4543_EN-EP_OD_Linear_Gas_FP_AMF-EL_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/127035-01_K_SUP_VRE4543_EN-EP_OD_Linear_Gas_FP_AMF-EL_IICO.pdf'}
+             for sku in ['VRE4543EN', 'VRE4543EP']
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '127029-01_G_SUP_VRE45364250_OD_VF_FB_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '127029-01_G_SUP_VRE45364250_OD_VF_FB_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/127029-01_G_SUP_VRE45364250_OD_VF_FB_IICO.pdf'}
+             for sku in ['VRE4536WS', 'VRE4536WH', 'VRE4542WS', 'VRE4542WH', 'VRE4550WS', 'VRE4550WH',]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900917-00_A_SUP_WXS2016_(ES2100)_Wood_Stove_EN_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '900917-00_A_SUP_WXS2016_(ES2100)_Wood_Stove_EN_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900917-00_A_SUP_WXS2016_(ES2100)_Wood_Stove_EN_IICO.pdf'}
+             for sku in ['WXS2016',]
+            ]
+        ),
+        (
+            'Superior',
+            INPUT_FOLDER / 'Superior' / '900979-00_A_SUP_WXS2021WS-B_Woodstove_EN_IICO.pdf',
+            [{'sku': sku, 'series': '', 'brand': 'Superior',
+              'pdf_name': '900979-00_A_SUP_WXS2021WS-B_Woodstove_EN_IICO.pdf',
+              'manual_type': 'installation',
+              'pdf_location': 'Superior/900979-00_A_SUP_WXS2021WS-B_Woodstove_EN_IICO.pdf'}
+             for sku in ['WXS2021WS-B',]
             ]
         ),
        ]
