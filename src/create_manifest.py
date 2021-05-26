@@ -173,6 +173,13 @@ def extract_sku_from_brand(brand: str,
     return brand_dict[brand](brand=brand, file=file, debug=debug)
 
 
+def remove_duplicate(data: List[Dict]) -> List[Dict]:
+    """Remove duplicated dict in a list of dict
+    Ref: https://stackoverflow.com/a/51389105/6596203
+    """
+    return list({frozenset(item.items()): item for item in data}.values())
+
+
 def extract_sku_from_dimplex_manuals(brand: str,
                                      file: PurePath,
                                      debug: bool = False
@@ -212,7 +219,7 @@ def extract_sku_from_dimplex_manuals(brand: str,
                               for sku in models])
                 # console.log(f'{filename=}')
                 # console.log(f'{models=}')
-    return result
+    return remove_duplicate(result)
 
 
 def extract_sku_from_duravent_manuals(brand: str,
@@ -319,7 +326,7 @@ def extract_sku_from_empire_manuals(brand: str,
                 # console.log(f'{models=}')
 
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def expand_models(models: List[str]) -> List[str]:
@@ -484,7 +491,7 @@ def extract_sku_from_majestic_manuals(brand: str,
                                                element.get_text(), flags=re.IGNORECASE)
 
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def extract_sku_from_modernflames_manuals(brand: str,
@@ -568,7 +575,7 @@ def extract_sku_from_modernflames_manuals(brand: str,
                 # the same box as the one containing 'model'
                 check_next_element = 'model' in element.get_text().lower()
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def extract_sku_from_monessen_manuals(brand: str,
@@ -642,7 +649,7 @@ def extract_sku_from_monessen_manuals(brand: str,
                 # the same box as the one containing 'model'
                 check_next_element = 'model' in element.get_text().lower()
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def extract_sku_from_simplifire_manuals(brand: str,
@@ -716,7 +723,7 @@ def extract_sku_from_simplifire_manuals(brand: str,
                 # the same box as the one containing 'model'
                 check_next_element = 'model' in element.get_text().lower()
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def extract_sku_from_superior_manuals(brand: str,
@@ -754,7 +761,8 @@ def extract_sku_from_superior_manuals(brand: str,
                 console.log(element.get_text())
 
             if (isinstance(element, LTTextBoxHorizontal)
-                and 'instructions' in element.get_text().lower()):
+                and any(word in element.get_text().lower()
+                        for word in ['instructions', 'manual'])):
                 type = re.search(r'install\w+|owner',
                                         element.get_text().lower(),
                                         flags=re.IGNORECASE)
@@ -807,7 +815,7 @@ def extract_sku_from_superior_manuals(brand: str,
                                       or re.search(r'P\d+\-\d{2}|\s+', text)    # Sometimes the barcode (e.g. 'P126718-01') get in between the 'Models' line and the SKUs
                                       )
     # console.log(f'{result=}')
-    return result
+    return remove_duplicate(result)
 
 
 def append_manifests(file: Union[str, PurePath],
@@ -843,7 +851,7 @@ if __name__ == '__main__':
 
 
     # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/SimpliFire/*.pdf')}
-    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Majestic/ODPLAZA-L24S Linear Installation Manual 4079-311.pdf')}
+    # files = {f.resolve() for f in Path(INPUT_FOLDER).glob('**/Superior/900917-00_A_SUP_WXS2016_(ES2100)_Wood_Stove_EN_IICO.pdf')}
 
     # breakpoint()
     # Create the manifest
