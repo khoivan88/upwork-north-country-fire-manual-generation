@@ -195,6 +195,7 @@ def rank_closest_sku(anchor: Dict[str, str],
     List[Dict[str, str]]
         [description]
     """
+    scores = set()
     sku = anchor['manufacturerSKU']
     for item in list_to_be_ranked:
         score = 0
@@ -204,6 +205,13 @@ def rank_closest_sku(anchor: Dict[str, str],
             else:
                 break
         item['score'] = score
+        scores.add(score)
+
+    if len(scores) == 1:
+        # If the same score, return in alphabetical order of 'sku',
+        # e.g. 'DRT4245TEN-B' before 'DRT4245TEN-C'
+        return sorted(list_to_be_ranked, key=itemgetter('sku'))
+
     return sorted(list_to_be_ranked, key=itemgetter('score'), reverse=True)
 
 
