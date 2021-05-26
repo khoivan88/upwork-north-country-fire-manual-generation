@@ -60,18 +60,18 @@ def test_get_all_combinations(match: Tuple[str], expect: Set[str]):
 
 @pytest.mark.parametrize(
     "brand, file, expect", [
-        (
-            'Empire',
-            INPUT_FOLDER / 'Empire' / 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
-            [{'sku': 'VFLB60SP90N', 'series': '', 'brand': 'Empire',
-              'pdf_name': 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
-              'manual_type': 'installation',
-              'pdf_location': 'Empire/DFEV60LSS-1-Decorative-Front-Kit-1.pdf'},
-             {'sku': 'VFLB60SP90P', 'series': '', 'brand': 'Empire',
-              'pdf_name': 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
-              'manual_type': 'installation',
-              'pdf_location': 'Empire/DFEV60LSS-1-Decorative-Front-Kit-1.pdf'}]
-        ),
+        # (
+        #     'Empire',
+        #     INPUT_FOLDER / 'Empire' / 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
+        #     [{'sku': 'VFLB60SP90N', 'series': '', 'brand': 'Empire',
+        #       'pdf_name': 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
+        #       'manual_type': 'installation',
+        #       'pdf_location': 'Empire/DFEV60LSS-1-Decorative-Front-Kit-1.pdf'},
+        #      {'sku': 'VFLB60SP90P', 'series': '', 'brand': 'Empire',
+        #       'pdf_name': 'DFEV60LSS-1-Decorative-Front-Kit-1.pdf',
+        #       'manual_type': 'installation',
+        #       'pdf_location': 'Empire/DFEV60LSS-1-Decorative-Front-Kit-1.pdf'}]
+        # ),
         (
             'Empire',
             INPUT_FOLDER / 'Empire' / 'DVCX3642FP91-3.pdf',
