@@ -134,6 +134,9 @@ def find_installation_manual(item: Dict[str, str],
         item.update({'comment': 'Ignored.'})
         write_items_to_csv(file=NOT_FOUND_MANUALS_RESULT_FILE, lines=[item])
     elif manual_path:
+        copy_manual(item=item,
+                    manual_path=manual_path,
+                    out_dir=OUTPUT_MANUAL_FOLDER)
         # Write the match image file to log
         item.update({'matched_manual': Path(manual_path).relative_to(INPUT_MANUAL_FOLDER)})
         write_items_to_csv(file=FOUND_MANUALS_RESULT_FILE, lines=[item])
